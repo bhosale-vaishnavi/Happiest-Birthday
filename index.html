@@ -1,177 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>For My Pookie 💖</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>For My Pookie 🎂💖</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #ffd6e8, #e6d9ff, #fff1c1);
-  overflow-x: hidden;
-  text-align: center;
-  color: #5a2a60;
-}
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #ffdee9, #b5fffc);
+      text-align: center;
+      overflow-x: hidden;
+    }
 
-.container {
-  padding: 20px;
-}
+    #countdown-container {
+      margin-top: 20vh;
+    }
 
-h1 {
-  font-size: 2.2rem;
-  margin-top: 30px;
-}
+    #countdown {
+      font-size: 3rem;
+      color: #ff4d6d;
+    }
 
-#countdown {
-  font-size: 2rem;
-  margin: 20px 0;
-  font-weight: bold;
-}
+    #birthdayMessage,
+    #videoSection {
+      display: none;
+      margin-top: 15vh;
+    }
 
-.suspense {
-  font-size: 1.1rem;
-  margin-top: 10px;
-}
+    button {
+      background: #ff4d6d;
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 25px;
+      cursor: pointer;
+    }
 
-.hidden {
-  display: none;
-}
+    button:hover {
+      background: #ff1e56;
+    }
 
-button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 25px;
-  background: #ff5fa2;
-  color: white;
-  font-size: 1rem;
-  margin: 10px;
-  cursor: pointer;
-}
+    video {
+      width: 80%;
+      max-width: 500px;
+      border-radius: 15px;
+      margin-top: 20px;
+    }
 
-button:hover {
-  background: #ff2f87;
-}
+    .floating-emoji {
+      position: fixed;
+      bottom: -30px;
+      font-size: 30px;
+      animation: floatUp 4s ease-in forwards;
+      pointer-events: none;
+      z-index: 5;
+    }
 
-.hearts span {
-  position: fixed;
-  animation: float 6s infinite;
-  font-size: 20px;
-}
-
-@keyframes float {
-  0% { bottom: -10px; opacity: 0; }
-  50% { opacity: 1; }
-  100% { bottom: 110%; opacity: 0; }
-}
-
-video {
-  width: 90%;
-  max-width: 400px;
-  border-radius: 20px;
-  margin-top: 20px;
-}
-
-.message {
-  background: rgba(255,255,255,0.8);
-  padding: 15px;
-  border-radius: 20px;
-  margin-top: 20px;
-}
-</style>
+    @keyframes floatUp {
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<audio id="music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c8e0b8d4c.mp3" type="audio/mpeg">
-</audio>
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
 
-<div class="container">
+  <!-- Countdown -->
+  <div id="countdown-container">
+    <h2>Someone very special is about to be celebrated… 🥹🎀</h2>
+    <h1 id="countdown">Loading…</h1>
+    <p>Get ready pookie, something magical is coming ✨🧿</p>
+  </div>
 
-<h1 id="title">Something magical is coming 🥹✨</h1>
+  <!-- Birthday Message -->
+  <div id="birthdayMessage">
+    <h1>Happy Birthday My Pookie 🥹🎂💖</h1>
+    <p>
+      You are my safe place 🫂<br>
+      my happiness 😊<br>
+      my forever 🧿✨
+    </p>
+    <button onclick="showVideo()">Click for your surprise 🎥🎀</button>
+  </div>
 
-<div class="suspense">
-  Counting down to someone very special 💖🧿<br>
-  Please wait my love… 🫂
-</div>
+  <!-- Video Section -->
+  <div id="videoSection">
+    <video controls>
+      <source src="video.mp4" type="video/mp4">
+    </video>
+    <p>Made with all my love, just for you 🥹❤️</p>
+  </div>
 
-<div id="countdown"></div>
+  <script>
+    // 🎯 Target time: 28 December 2024, 22:40 IST
+    const targetDate = new Date("2024-12-28T22:40:00+05:30").getTime();
 
-<div id="celebration" class="hidden">
-  <h1>🎉 HAPPY BIRTHDAY MY POOKIE 🥹🧸🎀 💖</h1>
-  <button onclick="showVideo()">🎬 Click to see your surprise</button>
-  <button onclick="showMessage()">💌 A message from your Aruu</button>
-</div>
+    const countdownEl = document.getElementById("countdown");
+    const countdownContainer = document.getElementById("countdown-container");
+    const birthdayMessage = document.getElementById("birthdayMessage");
+    const videoSection = document.getElementById("videoSection");
+    const music = document.getElementById("bgMusic");
 
-<div id="videoSection" class="hidden">
-  <!-- REPLACE src with your video link -->
-  <video controls>
-    <source src="YOUR_VIDEO_LINK_HERE" type="video/mp4">
-  </video>
-</div>
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
 
-<div id="messageSection" class="hidden message">
-  <p>
-    I may not be beside you at this exact moment 🫂<br>
-    but my heart is holding you tight right now 🧿❤️<br><br>
-    Happy Birthday my love 🥹💖<br>
-    Forever yours,<br>
-    <b>Your Aruu</b>
-  </p>
-</div>
+      if (distance <= 0) {
+        clearInterval(timer);
+        countdownContainer.style.display = "none";
+        startCelebration();
+        music.play();
+        return;
+      }
 
-</div>
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
 
-<div class="hearts"></div>
+      countdownEl.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
 
-<script>
-const targetDate = new Date("December 28, 2025 22:22:00 GMT+05
-                            :30").getTime();
-const countdownEl = document.getElementById("countdown");
-const celebration = document.getElementById("celebration");
-const title = document.getElementById("title");
-const music = document.getElementById("music");
+    function startCelebration() {
+      const emojis = ["💖","✨","🎂","🧸","💋","🫂","🧿","🎀"];
+      let count = 0;
 
-setInterval(() => {
-  const now = new Date().getTime();
-  const distance = targetDate - now;
+      const interval = setInterval(() => {
+        if (count >= 35) {
+          clearInterval(interval);
+          birthdayMessage.style.display = "block";
+          return;
+        }
 
-  if (distance <= 0) {
-    countdownEl.innerHTML = "00:00:00";
-    celebration.classList.remove("hidden");
-    title.innerHTML = "💖 It’s finally here 💖";
-    music.play();
-    createHearts();
-    return;
-  }
+        const emoji = document.createElement("div");
+        emoji.className = "floating-emoji";
+        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.left = Math.random() * 100 + "vw";
 
-  const h = Math.floor(distance / (1000 * 60 * 60));
-  const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const s = Math.floor((distance % (1000 * 60)) / 1000);
+        document.body.appendChild(emoji);
 
-  countdownEl.innerHTML = `${h}h : ${m}m : ${s}s`;
-}, 1000);
+        setTimeout(() => emoji.remove(), 4000);
+        count++;
+      }, 150);
+    }
 
-function showVideo() {
-  document.getElementById("videoSection").classList.remove("hidden");
-}
-
-function showMessage() {
-  document.getElementById("messageSection").classList.remove("hidden");
-}
-
-function createHearts() {
-  for (let i = 0; i < 25; i++) {
-    const heart = document.createElement("span");
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-    document.querySelector(".hearts").appendChild(heart);
-  }
-}
-</script>
+    function showVideo() {
+      birthdayMessage.style.display = "none";
+      videoSection.style.display = "block";
+    }
+  </script>
 
 </body>
 </html>
