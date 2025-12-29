@@ -8,12 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-*{
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;}
 
 body{
   min-height:100vh;
@@ -26,23 +21,11 @@ body{
   overflow:hidden;
 }
 
-.screen{
-  max-width:900px;
-  padding:30px;
-}
-
+.screen{max-width:900px;padding:30px;}
 .hidden{display:none;}
 
-h1{
-  font-size:3rem;
-  margin-bottom:20px;
-}
-
-#countdown{
-  font-size:3.5rem;
-  font-weight:700;
-  margin-top:20px;
-}
+h1{font-size:3rem;margin-bottom:20px;}
+#countdown{font-size:3.5rem;font-weight:700;}
 
 button{
   background:white;
@@ -52,26 +35,22 @@ button{
   font-size:1.1rem;
   border-radius:40px;
   cursor:pointer;
-  margin-top:18px;
-  transition:0.3s ease;
+  margin:10px;
+  transition:0.3s;
 }
+button:hover{transform:scale(1.08);box-shadow:0 8px 20px rgba(255,79,139,0.4);}
 
-button:hover{
-  transform:scale(1.08);
-  box-shadow:0 8px 20px rgba(255,79,139,0.4);
-}
-
-/* Emojis */
-.emoji{
+/* Floating emojis & balloons */
+.emoji,.balloon{
   position:fixed;
-  font-size:2rem;
-  animation:floatUp 4s ease-out forwards;
   pointer-events:none;
+  animation:floatUp 5s ease-out forwards;
 }
+.balloon{font-size:3rem;}
 
 @keyframes floatUp{
-  0%{transform:translateY(0);opacity:1;}
-  100%{transform:translateY(-120vh);opacity:0;}
+  from{transform:translateY(0);opacity:1;}
+  to{transform:translateY(-120vh);opacity:0;}
 }
 
 /* Popup */
@@ -84,7 +63,6 @@ button:hover{
   align-items:center;
   z-index:50;
 }
-
 .popup-box{
   background:white;
   color:#ff4f8b;
@@ -94,146 +72,140 @@ button:hover{
   width:90%;
   animation:fadeIn 0.4s ease;
 }
-
 @keyframes fadeIn{
   from{opacity:0;transform:scale(0.9);}
   to{opacity:1;transform:scale(1);}
 }
 
-video{
-  width:100%;
-  border-radius:18px;
-  margin-top:15px;
-}
-
-.message{
-  font-size:1.3rem;
-  line-height:1.7;
-}
+video{width:100%;border-radius:18px;margin-top:15px;}
+.message{font-size:1.3rem;line-height:1.7;}
 
 .back-btn{
   background:#ffe4ec;
-  color:#ff4f8b;
   padding:10px 22px;
   font-size:0.95rem;
-  margin:8px 5px;
+}
+
+/* Music button */
+.music-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:white;
+  color:#ff4f8b;
+  border-radius:50%;
+  width:55px;
+  height:55px;
+  font-size:1.4rem;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Countdown -->
 <div class="screen" id="countdownScreen">
   <h1>Something magical is coming… 💫💖</h1>
   <div id="countdown">Loading…</div>
 </div>
 
-<!-- Birthday Screen -->
 <div class="screen hidden" id="birthdayScreen">
   <h1>🎉 HAPPY BIRTHDAY MY POOKIE 🎂💖</h1>
   <p>You are my happiest miracle 🧿✨</p>
   <button onclick="openChoices()">Something special for you 💝</button>
 </div>
 
-<!-- Popup -->
 <div class="popup" id="popup">
   <div class="popup-box" id="popupContent"></div>
 </div>
 
-<!-- Music -->
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_8c1a1d7c45.mp3">
 </audio>
 
 <script>
-// 🎯 Target Time
-const targetTime = new Date("2025-12-29T21:47:00+05:30").getTime();
+// 🎯 TARGET TIME
+const targetTime=new Date("2025-12-29T21:47:00+05:30").getTime();
 
-const countdownEl = document.getElementById("countdown");
-const countdownScreen = document.getElementById("countdownScreen");
-const birthdayScreen = document.getElementById("birthdayScreen");
-const popup = document.getElementById("popup");
-const popupContent = document.getElementById("popupContent");
-const music = document.getElementById("music");
+const countdownEl=document.getElementById("countdown");
+const countdownScreen=document.getElementById("countdownScreen");
+const birthdayScreen=document.getElementById("birthdayScreen");
+const popup=document.getElementById("popup");
+const popupContent=document.getElementById("popupContent");
+const music=document.getElementById("music");
 
-/* Fix autoplay */
-document.addEventListener("click",()=>{
-  music.play().catch(()=>{});
-},{once:true});
+document.addEventListener("click",()=>{music.play().catch(()=>{});},{once:true});
 
-let celebrationDone=false;
+let done=false;
 
-/* Countdown */
+// Countdown
 const timer=setInterval(()=>{
-  const now=new Date().getTime();
-  const diff=targetTime-now;
-
-  if(diff<=0 && !celebrationDone){
+  const diff=targetTime-new Date().getTime();
+  if(diff<=0 && !done){
     clearInterval(timer);
     countdownScreen.classList.add("hidden");
     birthdayScreen.classList.remove("hidden");
-    celebrationDone=true;
-    startCelebration();
+    done=true;
+    celebrate();
     return;
   }
-
-  const hrs=Math.floor(diff/(1000*60*60));
-  const mins=Math.floor((diff/(1000*60))%60);
-  const secs=Math.floor((diff/1000)%60);
-  countdownEl.textContent=`${hrs}h ${mins}m ${secs}s`;
+  const h=Math.floor(diff/(1000*60*60));
+  const m=Math.floor((diff/60000)%60);
+  const s=Math.floor((diff/1000)%60);
+  countdownEl.textContent=`${h}h ${m}m ${s}s`;
 },1000);
 
-/* Celebration */
-function startCelebration(){
+// Celebration
+function celebrate(){
   music.play().catch(()=>{});
-  
-  const emojis=["🎉","💖","🎂","✨","🧸","💋","🎈"];
-  for(let i=0;i<60;i++){
+  const emojis=["🎉","💖","🎂","✨","🧿","💞"];
+  const balloons=["🎈","🎈","🎈"];
+
+  for(let i=0;i<80;i++){
     const e=document.createElement("div");
     e.className="emoji";
     e.textContent=emojis[Math.floor(Math.random()*emojis.length)];
     e.style.left=Math.random()*100+"vw";
-    e.style.top=Math.random()*100+"vh";
+    e.style.top="100vh";
+    e.style.fontSize=(Math.random()*1.5+1)+"rem";
     document.body.appendChild(e);
-    setTimeout(()=>e.remove(),4000);
+    setTimeout(()=>e.remove(),5000);
   }
 
-  // Floating sparkles
-  for(let i=0;i<40;i++){
-    const sparkle = document.createElement("div");
-    sparkle.textContent = "✨";
-    sparkle.style.position = "fixed";
-    sparkle.style.fontSize = (Math.random()*1.5 + 1)+"rem"; // random size
-    sparkle.style.left = Math.random()*100+"vw";
-    sparkle.style.top = Math.random()*100+"vh";
-    sparkle.style.opacity = Math.random();
-    sparkle.style.pointerEvents = "none";
-    document.body.appendChild(sparkle);
-
-    // Animate sparkle twinkle
-    sparkle.animate([
-      {opacity: sparkle.style.opacity, transform: "scale(1)"},
-      {opacity: 1, transform: "scale(1.5)"},
-      {opacity: sparkle.style.opacity, transform: "scale(1)"}
-    ], { duration: 1200 + Math.random()*800, iterations: Infinity });
-
-    setTimeout(()=>sparkle.remove(), 5000); // remove after 5s
+  for(let i=0;i<15;i++){
+    const b=document.createElement("div");
+    b.className="balloon";
+    b.textContent="🎈";
+    b.style.left=Math.random()*100+"vw";
+    b.style.top="100vh";
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),6000);
   }
 }
 
-/* Popup controls */
-function closePopup(){
-  popup.style.display="none";
-  popupContent.innerHTML="";
-}
+// Click hearts
+document.addEventListener("click",(e)=>{
+  const hearts=["💖","✨","💞","🫂"];
+  const h=document.createElement("div");
+  h.textContent=hearts[Math.floor(Math.random()*hearts.length)];
+  h.style.position="fixed";
+  h.style.left=e.clientX+"px";
+  h.style.top=e.clientY+"px";
+  h.style.fontSize="1.5rem";
+  document.body.appendChild(h);
+  h.animate([{transform:"translateY(0)",opacity:1},{transform:"translateY(-80px)",opacity:0}],{duration:900});
+  setTimeout(()=>h.remove(),900);
+});
 
+// Popup
+function closePopup(){popup.style.display="none";}
 function openChoices(){
   popup.style.display="flex";
   popupContent.innerHTML=`
-    <button class="back-btn" onclick="closePopup()">⬅ Back to Birthday</button>
+    <button class="back-btn" onclick="closePopup()">⬅ Birthday</button>
     <h2>Choose your surprise 💝</h2>
-    <button onclick="showVideo()">🎬 Watch Video</button><br><br>
+    <button onclick="showVideo()">🎬 Watch Video</button>
     <button onclick="showMessage()">💌 Read Message</button>
   `;
 }
@@ -241,23 +213,34 @@ function openChoices(){
 function showVideo(){
   popupContent.innerHTML=`
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
-    <button class="back-btn" onclick="closePopup()">🏠 Birthday Page</button>
     <video controls autoplay>
       <source src="video.mp4" type="video/mp4">
     </video>
   `;
 }
 
+// Typing message
 function showMessage(){
   popupContent.innerHTML=`
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
-    <button class="back-btn" onclick="closePopup()">🏠 Birthday Page</button>
-    <div class="message">
-      My love 🥹❤️<br><br>
-      You are my safest place, my joy, my forever crush 🧿✨<br>
-      Happy Birthday my pookie 🎂💖
-    </div>
+    <div class="message" id="typedMsg"></div>
   `;
+  const text=`My love 🥹❤️
+
+You are my safest place, my joy, my forever crush 🧿✨
+Happy Birthday my pookie 🎂💖`;
+  let i=0;
+  const el=document.getElementById("typedMsg");
+  const typing=setInterval(()=>{
+    el.innerHTML+=text[i];
+    i++;
+    if(i>=text.length) clearInterval(typing);
+  },45);
+}
+
+// Music toggle
+function toggleMusic(){
+  music.paused?music.play():music.pause();
 }
 </script>
 
