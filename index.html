@@ -1,162 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>For My Pookie 🎂💖</title>
+<meta charset="UTF-8">
+<title>Happy Birthday My Pookie 💖</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(120deg, #ffdee9, #b5fffc);
-      text-align: center;
-      overflow-x: hidden;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ffd6e8, #cdeaff);
+  text-align: center;
+  overflow: hidden;
+}
 
-    #countdown-container {
-      margin-top: 20vh;
-    }
+/* Countdown */
+#countdownScreen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-    #countdown {
-      font-size: 3rem;
-      color: #ff4d6d;
-    }
+#countdown {
+  font-size: 4rem;
+  color: #ff3366;
+  font-weight: bold;
+}
 
-    #birthdayMessage,
-    #videoSection {
-      display: none;
-      margin-top: 15vh;
-    }
+.subtitle {
+  font-size: 1.3rem;
+  color: #444;
+}
 
-    button {
-      background: #ff4d6d;
-      border: none;
-      color: white;
-      padding: 12px 24px;
-      font-size: 1rem;
-      border-radius: 25px;
-      cursor: pointer;
-    }
+/* Popup */
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.95);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
 
-    button:hover {
-      background: #ff1e56;
-    }
+.popup h1 {
+  font-size: 3rem;
+  color: #ff3366;
+}
 
-    video {
-      width: 80%;
-      max-width: 500px;
-      border-radius: 15px;
-      margin-top: 20px;
-    }
+.popup button {
+  margin-top: 20px;
+}
 
-    .floating-emoji {
-      position: fixed;
-      bottom: -30px;
-      font-size: 30px;
-      animation: floatUp 4s ease-in forwards;
-      pointer-events: none;
-      z-index: 5;
-    }
+/* Buttons */
+button {
+  background: #ff3366;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+}
 
-    @keyframes floatUp {
-      to {
-        transform: translateY(-110vh);
-        opacity: 0;
-      }
-    }
-  </style>
+button:hover {
+  background: #ff1744;
+}
+
+/* Options */
+#options {
+  display: none;
+}
+
+.option-btn {
+  margin: 15px;
+}
+
+/* Video & Message */
+#videoSection, #messageSection {
+  display: none;
+}
+
+video {
+  width: 80%;
+  max-width: 500px;
+  border-radius: 15px;
+}
+
+/* Floating emojis */
+.emoji {
+  position: fixed;
+  bottom: -40px;
+  font-size: 28px;
+  animation: floatUp 4s ease-in forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-120vh);
+    opacity: 0;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- Background Music -->
-  <audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
+<!-- Countdown Screen -->
+<div id="countdownScreen">
+  <h1 id="countdown">Loading…</h1>
+  <p class="subtitle">A very special moment is coming 💖</p>
+</div>
 
-  <!-- Countdown -->
-  <div id="countdown-container">
-    <h2>Someone very special is about to be celebrated… 🥹🎀</h2>
-    <h1 id="countdown">Loading…</h1>
-    <p>Get ready pookie, something magical is coming ✨🧿</p>
-  </div>
+<!-- Celebration Popup -->
+<div class="popup" id="celebration">
+  <h1>Happy Birthday My Pookie 🎂💖</h1>
+  <p>You make my world softer, happier, and brighter ✨</p>
+  <button onclick="showOptions()">Something special for you 💝</button>
+</div>
 
-  <!-- Birthday Message -->
-  <div id="birthdayMessage">
-    <h1>Happy Birthday My Pookie 🥹🎂💖</h1>
-    <p>
-      You are my safe place 🫂<br>
-      my happiness 😊<br>
-      my forever 🧿✨
-    </p>
-    <button onclick="showVideo()">Click for your surprise 🎥🎀</button>
-  </div>
+<!-- Options -->
+<div class="popup" id="options">
+  <h1>Choose your surprise 🥰</h1>
+  <button class="option-btn" onclick="openVideo()">🎥 Watch Video</button>
+  <button class="option-btn" onclick="openMessage()">💌 Read My Message</button>
+</div>
 
-  <!-- Video Section -->
-  <div id="videoSection">
-    <video controls>
-      <source src="video.mp4" type="video/mp4">
-    </video>
-    <p>Made with all my love, just for you 🥹❤️</p>
-  </div>
+<!-- Video -->
+<div class="popup" id="videoSection">
+  <video controls autoplay>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+  <p>Made with all my love 🫶</p>
+</div>
 
-  <script>
-    // 🎯 Target time: 28 December 2024, 22:40 IST
-    const targetDate = new Date("2024-12-28T22:40:00+05:30").getTime();
+<!-- Message -->
+<div class="popup" id="messageSection">
+  <h1>For You ❤️</h1>
+  <p style="font-size:1.2rem; max-width:600px;">
+    You are my safe place, my smile, my comfort.<br>
+    Loving you is my favorite thing 🥹💖
+  </p>
+</div>
 
-    const countdownEl = document.getElementById("countdown");
-    const countdownContainer = document.getElementById("countdown-container");
-    const birthdayMessage = document.getElementById("birthdayMessage");
-    const videoSection = document.getElementById("videoSection");
-    const music = document.getElementById("bgMusic");
+<script>
+/* IST-safe countdown */
+const targetTime = new Date("2024-12-29T06:04:00+05:30").getTime();
+const countdownEl = document.getElementById("countdown");
 
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+const timer = setInterval(() => {
+  const now = new Date().getTime();
+  const diff = targetTime - now;
 
-      if (distance <= 0) {
-        clearInterval(timer);
-        countdownContainer.style.display = "none";
-        startCelebration();
-        music.play();
-        return;
-      }
+  if (diff <= 0) {
+    clearInterval(timer);
+    document.getElementById("countdownScreen").style.display = "none";
+    startCelebration();
+    return;
+  }
 
-      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((distance / (1000 * 60)) % 60);
-      const seconds = Math.floor((distance / 1000) % 60);
+  const h = Math.floor(diff / (1000 * 60 * 60));
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
 
-      countdownEl.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
-    }, 1000);
+  countdownEl.innerHTML = `${h}h ${m}m ${s}s`;
+}, 1000);
 
-    function startCelebration() {
-      const emojis = ["💖","✨","🎂","🧸","💋","🫂","🧿","🎀"];
-      let count = 0;
+/* Celebration */
+function startCelebration() {
+  document.getElementById("celebration").style.display = "flex";
 
-      const interval = setInterval(() => {
-        if (count >= 35) {
-          clearInterval(interval);
-          birthdayMessage.style.display = "block";
-          return;
-        }
+  const emojis = ["❤️","🎂","✨","💖","🎀","🥰"];
+  let count = 0;
 
-        const emoji = document.createElement("div");
-        emoji.className = "floating-emoji";
-        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        emoji.style.left = Math.random() * 100 + "vw";
+  const interval = setInterval(() => {
+    if (count >= 30) return clearInterval(interval);
+    const e = document.createElement("div");
+    e.className = "emoji";
+    e.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+    e.style.left = Math.random()*100 + "vw";
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),4000);
+    count++;
+  }, 200);
+}
 
-        document.body.appendChild(emoji);
+/* Flow */
+function showOptions() {
+  document.getElementById("celebration").style.display = "none";
+  document.getElementById("options").style.display = "flex";
+}
 
-        setTimeout(() => emoji.remove(), 4000);
-        count++;
-      }, 150);
-    }
+function openVideo() {
+  document.getElementById("options").style.display = "none";
+  document.getElementById("videoSection").style.display = "flex";
+}
 
-    function showVideo() {
-      birthdayMessage.style.display = "none";
-      videoSection.style.display = "block";
-    }
-  </script>
+function openMessage() {
+  document.getElementById("options").style.display = "none";
+  document.getElementById("messageSection").style.display = "flex";
+}
+</script>
 
 </body>
 </html>
