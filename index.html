@@ -9,10 +9,10 @@
 
 <style>
 *{
-  margin:0;
-  padding:0;
   box-sizing:border-box;
   font-family:'Poppins',sans-serif;
+  margin:0;
+  padding:0;
 }
 
 body{
@@ -33,36 +33,45 @@ body{
 
 .hidden{display:none;}
 
-h1{font-size:3rem;margin-bottom:20px;}
-#countdown{font-size:3.4rem;font-weight:700;}
+h1{
+  font-size:3rem;
+  margin-bottom:20px;
+}
 
+#countdown{
+  font-size:3.5rem;
+  font-weight:700;
+  margin-top:20px;
+}
+
+/* Buttons */
 button{
   background:white;
   color:#ff4f8b;
   border:none;
-  padding:14px 32px;
-  font-size:1.1rem;
+  padding:15px 32px;
+  font-size:1.15rem;
   border-radius:40px;
   cursor:pointer;
-  margin-top:18px;
+  margin-top:20px;
   transition:0.3s ease;
 }
 
 button:hover{
   transform:scale(1.08);
-  box-shadow:0 8px 20px rgba(255,79,139,0.35);
+  box-shadow:0 8px 20px rgba(255,79,139,0.4);
 }
 
-/* Celebration emojis */
+/* Floating emojis */
 .emoji{
   position:fixed;
   font-size:2rem;
+  animation:floatUp 4s ease-out forwards;
   pointer-events:none;
-  animation:floatUp 4.5s ease-out forwards;
 }
 
 @keyframes floatUp{
-  from{transform:translateY(0);opacity:1;}
+  from{transform:translateY(40px);opacity:1;}
   to{transform:translateY(-120vh);opacity:0;}
 }
 
@@ -82,13 +91,13 @@ button:hover{
   color:#ff4f8b;
   padding:30px;
   border-radius:22px;
-  max-width:540px;
+  max-width:520px;
   width:90%;
-  animation:fadeIn 0.35s ease;
+  animation:fadeIn 0.4s ease;
 }
 
 @keyframes fadeIn{
-  from{opacity:0;transform:scale(0.92);}
+  from{opacity:0;transform:scale(0.9);}
   to{opacity:1;transform:scale(1);}
 }
 
@@ -107,8 +116,8 @@ video{
   background:#ffe4ec;
   color:#ff4f8b;
   padding:10px 22px;
-  font-size:0.95rem;
-  margin:6px;
+  font-size:1rem;
+  margin-bottom:15px;
 }
 </style>
 </head>
@@ -134,9 +143,10 @@ video{
 </div>
 
 <script>
-// 🎯 TARGET TIME (CHANGE IF NEEDED)
-const targetTime = new Date("2025-12-29T22:10:26+05:30").getTime();
+/* 🔹 SET YOUR TARGET TIME HERE */
+const targetTime = new Date("2025-12-29T22:40:00+05:30").getTime();
 
+/* Elements */
 const countdownEl = document.getElementById("countdown");
 const countdownScreen = document.getElementById("countdownScreen");
 const birthdayScreen = document.getElementById("birthdayScreen");
@@ -145,7 +155,7 @@ const popupContent = document.getElementById("popupContent");
 
 let celebrationDone = false;
 
-/* Countdown */
+/* Countdown Logic */
 const timer = setInterval(() => {
   const now = Date.now();
   const diff = targetTime - now;
@@ -159,45 +169,64 @@ const timer = setInterval(() => {
     return;
   }
 
-  const h = Math.floor(diff / (1000 * 60 * 60));
-  const m = Math.floor((diff / (1000 * 60)) % 60);
-  const s = Math.floor((diff / 1000) % 60);
-  countdownEl.textContent = `${h}h ${m}m ${s}s`;
+  if (diff > 0) {
+    const hrs = Math.floor(diff / (1000 * 60 * 60));
+    const mins = Math.floor((diff / (1000 * 60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+    countdownEl.textContent = `${hrs}h ${mins}m ${secs}s`;
+  }
 }, 1000);
 
-/* Celebration (RANDOM, SMOOTH) */
+/* Emoji Celebration */
 function startCelebration(){
-  const emojis = ["🎉","💖","🎂","✨","💞","🧿","🎈"];
-  for(let i=0;i<55;i++){
+  const emojis = ["🎉","💖","🎂","✨","🧸","💋","🎈"];
+  for(let i=0;i<70;i++){
     const e = document.createElement("div");
     e.className = "emoji";
     e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
     e.style.left = Math.random()*100 + "vw";
-    e.style.top = (80 + Math.random()*20) + "vh";
-    e.style.fontSize = (Math.random()*1.4 + 1) + "rem";
+    e.style.bottom = "-20px";
+    e.style.animationDuration = (3 + Math.random()*2) + "s";
     document.body.appendChild(e);
-    setTimeout(()=>e.remove(),4500);
+    setTimeout(()=>e.remove(),5000);
   }
 }
 
 /* Popup Flow */
-function closePopup(){
-  popup.style.display="none";
-  popupContent.innerHTML="";
-}
-
 function openChoices(){
-  popup.style.display="flex";
-  popupContent.innerHTML=`
-    <button class="back-btn" onclick="closePopup()">⬅ Back to Birthday</button>
+  popup.style.display = "flex";
+  popupContent.innerHTML = `
     <h2>Choose your surprise 💝</h2>
     <button onclick="showVideo()">🎬 Watch Video</button><br><br>
-    <button onclick="showMessage()">💌 Read Message</button>
+    <button onclick="showMessage()">💌 Read Message</button><br><br>
+    <button class="back-btn" onclick="closePopup()">⬅ Back</button>
   `;
 }
 
 function showVideo(){
-  popupContent.innerHTML=`
+  popupContent.innerHTML = `
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
-    <button class="back-btn" onclick="closePopup()">🏠 Birthday Page</button>
-    <
+    <video controls autoplay>
+      <source src="video.mp4" type="video/mp4">
+    </video>
+  `;
+}
+
+function showMessage(){
+  popupContent.innerHTML = `
+    <button class="back-btn" onclick="openChoices()">⬅ Back</button>
+    <div class="message">
+      My love 🥹❤️<br><br>
+      You are my safest place, my joy, my forever crush 🧿✨<br>
+      Happy Birthday my pookie 🎂💖
+    </div>
+  `;
+}
+
+function closePopup(){
+  popup.style.display = "none";
+}
+</script>
+
+</body>
+</html>
