@@ -48,11 +48,11 @@ button{
   background:white;
   color:#ff4f8b;
   border:none;
-  padding:15px 32px;
-  font-size:1.15rem;
+  padding:14px 30px;
+  font-size:1.1rem;
   border-radius:40px;
   cursor:pointer;
-  margin-top:20px;
+  margin-top:18px;
   transition:0.3s ease;
 }
 
@@ -61,7 +61,7 @@ button:hover{
   box-shadow:0 8px 20px rgba(255,79,139,0.4);
 }
 
-/* Floating emojis */
+/* Emojis */
 .emoji{
   position:fixed;
   font-size:2rem;
@@ -90,7 +90,7 @@ button:hover{
   color:#ff4f8b;
   padding:30px;
   border-radius:22px;
-  max-width:520px;
+  max-width:540px;
   width:90%;
   animation:fadeIn 0.4s ease;
 }
@@ -115,35 +115,39 @@ video{
   background:#ffe4ec;
   color:#ff4f8b;
   padding:10px 22px;
-  font-size:1rem;
-  margin-bottom:15px;
+  font-size:0.95rem;
+  margin:8px 5px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- Countdown -->
 <div class="screen" id="countdownScreen">
   <h1>Something magical is coming… 💫💖</h1>
   <div id="countdown">Loading…</div>
 </div>
 
+<!-- Birthday Screen -->
 <div class="screen hidden" id="birthdayScreen">
   <h1>🎉 HAPPY BIRTHDAY MY POOKIE 🎂💖</h1>
   <p>You are my happiest miracle 🧿✨</p>
   <button onclick="openChoices()">Something special for you 💝</button>
 </div>
 
+<!-- Popup -->
 <div class="popup" id="popup">
   <div class="popup-box" id="popupContent"></div>
 </div>
 
+<!-- Music -->
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_8c1a1d7c45.mp3">
 </audio>
 
 <script>
-// 🎯 Target time
+// 🎯 Target Time
 const targetTime = new Date("2025-12-29T20:30:00+05:30").getTime();
 
 const countdownEl = document.getElementById("countdown");
@@ -195,10 +199,16 @@ function startCelebration(){
   }
 }
 
-/* POPUP FLOW */
+/* Popup controls */
+function closePopup(){
+  popup.style.display="none";
+  popupContent.innerHTML="";
+}
+
 function openChoices(){
   popup.style.display="flex";
   popupContent.innerHTML=`
+    <button class="back-btn" onclick="closePopup()">⬅ Back to Birthday</button>
     <h2>Choose your surprise 💝</h2>
     <button onclick="showVideo()">🎬 Watch Video</button><br><br>
     <button onclick="showMessage()">💌 Read Message</button>
@@ -208,6 +218,7 @@ function openChoices(){
 function showVideo(){
   popupContent.innerHTML=`
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
+    <button class="back-btn" onclick="closePopup()">🏠 Birthday Page</button>
     <video controls autoplay>
       <source src="video.mp4" type="video/mp4">
     </video>
@@ -217,6 +228,7 @@ function showVideo(){
 function showMessage(){
   popupContent.innerHTML=`
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
+    <button class="back-btn" onclick="closePopup()">🏠 Birthday Page</button>
     <div class="message">
       My love 🥹❤️<br><br>
       You are my safest place, my joy, my forever crush 🧿✨<br>
