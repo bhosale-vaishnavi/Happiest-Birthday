@@ -83,9 +83,10 @@ function startCelebration(){
   for(let i=0;i<60;i++){
     const e = document.createElement("div");
     e.className="emoji";
-    e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    e.style.left = Math.random()*100 + "vw";
-    e.style.bottom = (Math.random()*20 - 10) + "px"; // small variation
+    e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+e.style.left = Math.random() * 100 + "vw";
+e.style.top  = Math.random() * 100 + "vh";
+// small variation
     document.body.appendChild(e);
     setTimeout(()=>e.remove(),4000);
   }
