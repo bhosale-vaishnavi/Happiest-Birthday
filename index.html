@@ -3,135 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Pookie 💖</title>
-
+<title>Happiest Birthday My Pookie 💖</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-* {
-  box-sizing: border-box;
-  font-family: 'Poppins', system-ui, sans-serif;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  color: white;
-  text-align: center;
-}
-
-.screen {
-  max-width: 900px;
-  padding: 30px;
-}
-
-.hidden {
-  display: none;
-}
-
-h1 {
-  font-size: 3rem;
-}
-
-#countdown {
-  font-size: 3.2rem;
-  font-weight: 700;
-  margin-top: 20px;
-}
-
-button {
-  background: white;
-  color: #ff4f8b;
-  border: none;
-  padding: 15px 30px;
-  font-size: 1.2rem;
-  border-radius: 40px;
-  cursor: pointer;
-  margin-top: 25px;
-  transition: 0.3s;
-}
-
-button:hover {
-  transform: scale(1.05);
-}
-
-/* Emoji animation */
-.emoji {
-  position: fixed;
-  font-size: 2rem;
-  animation: floatUp 4s ease-out forwards;
-  pointer-events: none;
-}
-
-@keyframes floatUp {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(-120vh); opacity: 0; }
-}
-
-/* Popup */
-.popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 20;
-}
-
-.popup-box {
-  background: white;
-  color: #ff4f8b;
-  padding: 30px;
-  border-radius: 20px;
-  max-width: 500px;
-  width: 90%;
-}
-
-video {
-  width: 100%;
-  border-radius: 20px;
-}
-
-.message {
-  font-size: 1.3rem;
-  line-height: 1.7;
-}
+* { box-sizing: border-box; font-family: 'Poppins', sans-serif; margin:0; padding:0;}
+body { min-height:100vh; display:flex; justify-content:center; align-items:center; text-align:center; background: linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb); color:white; overflow:hidden;}
+.screen { max-width:900px; padding:30px; }
+.hidden { display:none; }
+h1 { font-size:3rem; margin-bottom:20px;}
+#countdown { font-size:3.5rem; font-weight:700; margin-top:20px;}
+button { background:white; color:#ff4f8b; border:none; padding:15px 30px; font-size:1.2rem; border-radius:40px; cursor:pointer; margin-top:25px; transition:0.3s;}
+button:hover { transform:scale(1.05);}
+.emoji { position:fixed; font-size:2rem; animation:floatUp 4s ease-out forwards; pointer-events:none;}
+@keyframes floatUp { 0% { transform: translateY(0); opacity:1; } 100% { transform: translateY(-120vh); opacity:0; } }
+.popup { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:20; }
+.popup-box { background:white; color:#ff4f8b; padding:30px; border-radius:20px; max-width:500px; width:90%; }
+video { width:100%; border-radius:20px; }
+.message { font-size:1.3rem; line-height:1.7; color:#ff4f8b;}
 </style>
 </head>
-
 <body>
 
-<!-- Countdown Screen -->
 <div class="screen" id="countdownScreen">
   <h1>Something magical is coming… 💫💖</h1>
   <div id="countdown">Loading…</div>
 </div>
 
-<!-- Birthday Screen -->
 <div class="screen hidden" id="birthdayScreen">
   <h1>🎉 HAPPY BIRTHDAY MY POOKIE 🎂💖</h1>
   <p>You are my happiest miracle 🧿✨</p>
   <button onclick="openPopup()">Something special for you 💝</button>
 </div>
 
-<!-- Popup -->
-<div class="popup hidden" id="popup">
+<div class="popup" id="popup">
   <div class="popup-box" id="popupContent"></div>
 </div>
 
-<!-- Music -->
 <audio id="music" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_8c1a1d7c45.mp3">
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_8c1a1d7c45.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-const targetTime = new Date("2025-12-29T06:40:00+05:30").getTime();
+// Countdown for 29 Dec 2025 08:45 AM IST
+const targetTime = new Date("2025-12-29T08:45:00+05:30").getTime();
 
 const countdownEl = document.getElementById("countdown");
 const countdownScreen = document.getElementById("countdownScreen");
@@ -140,60 +55,61 @@ const popup = document.getElementById("popup");
 const popupContent = document.getElementById("popupContent");
 const music = document.getElementById("music");
 
-const timer = setInterval(() => {
+let celebrationDone = false;
+
+const timer = setInterval(()=>{
   const now = new Date().getTime();
   const diff = targetTime - now;
 
-  if (diff <= 0) {
+  if(diff <= 0 && !celebrationDone){
     clearInterval(timer);
     countdownScreen.classList.add("hidden");
     birthdayScreen.classList.remove("hidden");
-    music.play();
-    celebrate();
+    celebrationDone = true;
+    startCelebration();
     return;
   }
 
-  const hrs = Math.floor(diff / (1000 * 60 * 60));
-  const mins = Math.floor((diff / (1000 * 60)) % 60);
+  const hrs = Math.floor(diff / (1000*60*60));
+  const mins = Math.floor((diff / (1000*60)) % 60);
   const secs = Math.floor((diff / 1000) % 60);
-
   countdownEl.textContent = `${hrs}h ${mins}m ${secs}s`;
-}, 1000);
+},1000);
 
-/* Celebration */
-function celebrate() {
+function startCelebration(){
+  music.play();
+  // limited random emojis
   const emojis = ["🎉","💖","🎂","✨","🧸","💋","🎈"];
-  for (let i = 0; i < 50; i++) {
+  for(let i=0;i<60;i++){
     const e = document.createElement("div");
-    e.className = "emoji";
-    e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    e.style.left = Math.random() * 100 + "vw";
-    e.style.bottom = "-30px";
+    e.className="emoji";
+    e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    e.style.left = Math.random()*100 + "vw";
+    e.style.bottom = (Math.random()*20 - 10) + "px"; // small variation
     document.body.appendChild(e);
-    setTimeout(() => e.remove(), 4000);
+    setTimeout(()=>e.remove(),4000);
   }
 }
 
-/* Popup */
-function openPopup() {
-  popup.classList.remove("hidden");
-  popupContent.innerHTML = `
+function openPopup(){
+  popup.style.display="flex";
+  popupContent.innerHTML=`
     <h2>Choose your surprise 💝</h2>
     <button onclick="showVideo()">🎬 Watch Video</button><br><br>
     <button onclick="showMessage()">💌 Read Message</button>
   `;
 }
 
-function showVideo() {
-  popupContent.innerHTML = `
+function showVideo(){
+  popupContent.innerHTML=`
     <video controls autoplay>
       <source src="video.mp4" type="video/mp4">
     </video>
   `;
 }
 
-function showMessage() {
-  popupContent.innerHTML = `
+function showMessage(){
+  popupContent.innerHTML=`
     <div class="message">
       My love 🥹❤️<br><br>
       You are my safest place, my joy, my forever crush 🧿✨<br>
