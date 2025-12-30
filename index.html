@@ -44,7 +44,6 @@ h1{
   margin-top:20px;
 }
 
-/* Buttons */
 button{
   background:white;
   color:#ff4f8b;
@@ -62,11 +61,11 @@ button:hover{
   box-shadow:0 8px 20px rgba(255,79,139,0.4);
 }
 
-/* Floating emojis */
+/* Emojis */
 .emoji{
   position:fixed;
   font-size:2rem;
-  animation:floatUp 4s ease-out forwards;
+  animation:floatUp 6s ease-out forwards;
   pointer-events:none;
 }
 
@@ -91,7 +90,7 @@ button:hover{
   color:#ff4f8b;
   padding:30px;
   border-radius:22px;
-  max-width:520px;
+  max-width:540px;
   width:90%;
   animation:fadeIn 0.4s ease;
 }
@@ -119,98 +118,116 @@ video{
   font-size:1rem;
   margin-bottom:15px;
 }
+
+/* 💖 Memories section */
+.memories{
+  max-height:60vh;
+  overflow-y:auto;
+  scroll-behavior:smooth;
+  padding-right:8px;
+}
+
+.memory{
+  margin-bottom:30px;
+  opacity:0;
+  transform:translateY(30px);
+  animation:fadeUp 0.8s ease forwards;
+}
+
+.memory:nth-child(1){animation-delay:0.1s}
+.memory:nth-child(2){animation-delay:0.3s}
+.memory:nth-child(3){animation-delay:0.5s}
+.memory:nth-child(4){animation-delay:0.7s}
+
+.memory img{
+  width:100%;
+  border-radius:18px;
+  margin-bottom:10px;
+}
+
+.memory p{
+  font-size:1.1rem;
+  line-height:1.6;
+}
+
+@keyframes fadeUp{
+  to{opacity:1;transform:translateY(0);}
+}
 </style>
 </head>
 
 <body>
 
-<!-- Countdown Screen -->
 <div class="screen" id="countdownScreen">
   <h1>Something magical is coming… 💫💖</h1>
   <div id="countdown">Loading…</div>
 </div>
 
-<!-- Birthday Screen -->
 <div class="screen hidden" id="birthdayScreen">
   <h1>🎉 HAPPY BIRTHDAY MY POOKIE 🎂💖</h1>
   <p>You are my happiest miracle 🧿✨</p>
   <button onclick="openChoices()">Something special for you 💝</button>
 </div>
 
-<!-- Popup -->
 <div class="popup" id="popup">
   <div class="popup-box" id="popupContent"></div>
 </div>
 
 <script>
-/* 🔹 SET YOUR TARGET TIME HERE */
 const targetTime = new Date("2025-12-30T10:43:00+05:30").getTime();
 
-/* Elements */
 const countdownEl = document.getElementById("countdown");
 const countdownScreen = document.getElementById("countdownScreen");
 const birthdayScreen = document.getElementById("birthdayScreen");
 const popup = document.getElementById("popup");
 const popupContent = document.getElementById("popupContent");
 
-let celebrationDone = false;
+let done=false;
 
-/* Countdown Logic */
-const timer = setInterval(() => {
-  const now = Date.now();
-  const diff = targetTime - now;
-
-  if (diff <= 0 && !celebrationDone) {
+const timer=setInterval(()=>{
+  const diff=targetTime-Date.now();
+  if(diff<=0 && !done){
     clearInterval(timer);
     countdownScreen.classList.add("hidden");
     birthdayScreen.classList.remove("hidden");
-    celebrationDone = true;
-    startCelebration();
+    done=true;
+    celebrate();
     return;
   }
-
-  if (diff > 0) {
-    const hrs = Math.floor(diff / (1000 * 60 * 60));
-    const mins = Math.floor((diff / (1000 * 60)) % 60);
-    const secs = Math.floor((diff / 1000) % 60);
-    countdownEl.textContent = `${hrs}h ${mins}m ${secs}s`;
+  if(diff>0){
+    countdownEl.textContent=
+      `${Math.floor(diff/3600000)}h ${Math.floor(diff/60000)%60}m ${Math.floor(diff/1000)%60}s`;
   }
-}, 1000);
+},1000);
 
-/* Emoji Celebration */
-
-function startCelebration(){
-  const emojis = ["🎉","💖","🎂","✨","🧸","💋","🎈"];
-
+function celebrate(){
+  const emojis=["🎉","💖","🎂","✨","🧸","💋","🎈"];
   for(let i=0;i<70;i++){
-    setTimeout(() => {
-      const e = document.createElement("div");
-      e.className = "emoji";
-      e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-      e.style.left = Math.random()*100 + "vw";
-      e.style.bottom = "-40px";
-
-      // ⬇ slower + smoother animation
-      e.style.animationDuration = (6 + Math.random()*4) + "s";
-
+    setTimeout(()=>{
+      const e=document.createElement("div");
+      e.className="emoji";
+      e.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+      e.style.left=Math.random()*100+"vw";
+      e.style.bottom="-40px";
       document.body.appendChild(e);
       setTimeout(()=>e.remove(),10000);
-    }, Math.random() * 2500); // ⬅ spread emoji start time
+    },Math.random()*2500);
   }
 }
-/* Popup Flow */
+
 function openChoices(){
-  popup.style.display = "flex";
-  popupContent.innerHTML = `
+  popup.style.display="flex";
+  popupContent.innerHTML=`
     <h2>Choose your surprise 💝</h2>
     <button onclick="showVideo()">🎬 Watch Video</button><br><br>
     <button onclick="showMessage()">💌 Read Message</button><br><br>
+    <button onclick="showMemories()">📸 Our Memories</button><br><br>
     <button class="back-btn" onclick="closePopup()">⬅ Back</button>
   `;
 }
 
 function showVideo(){
-  popupContent.innerHTML = `
+  popupContent.innerHTML=`
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
     <video controls autoplay>
       <source src="video.mp4" type="video/mp4">
@@ -219,18 +236,48 @@ function showVideo(){
 }
 
 function showMessage(){
-  popupContent.innerHTML = `
+  popupContent.innerHTML=`
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
     <div class="message">
       My love 🥹❤️<br><br>
-      You are my safest place, my joy, my forever crush 🧿✨<br>
-      Happy Birthday my pookie 🎂💖
+      Loving you feels like home,  
+      like peace, like everything I ever wished for 🧿✨<br><br>
+      Happy Birthday my forever 💖🎂
+    </div>
+  `;
+}
+
+function showMemories(){
+  popupContent.innerHTML=`
+    <button class="back-btn" onclick="openChoices()">⬅ Back</button>
+    <h2>Our Little Forever 💞</h2>
+
+    <div class="memories">
+      <div class="memory">
+        <img src="photo1.jpg">
+        <p>The moment I knew my heart was safe with you 🥹❤️</p>
+      </div>
+
+      <div class="memory">
+        <img src="photo2.jpg">
+        <p>Every laugh with you is my favorite sound 💖</p>
+      </div>
+
+      <div class="memory">
+        <img src="photo3.jpg">
+        <p>You make ordinary days feel magical 🧿✨</p>
+      </div>
+
+      <div class="memory">
+        <img src="photo4.jpg">
+        <p>No matter where life goes, I want it to be with you 💞</p>
+      </div>
     </div>
   `;
 }
 
 function closePopup(){
-  popup.style.display = "none";
+  popup.style.display="none";
 }
 </script>
 
