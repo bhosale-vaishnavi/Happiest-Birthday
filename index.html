@@ -144,7 +144,7 @@ video{
 
 <script>
 /* 🔹 SET YOUR TARGET TIME HERE */
-const targetTime = new Date("2025-12-30T07:23:00+05:30").getTime();
+const targetTime = new Date("2025-12-30T10:43:00+05:30").getTime();
 
 /* Elements */
 const countdownEl = document.getElementById("countdown");
@@ -178,20 +178,26 @@ const timer = setInterval(() => {
 }, 1000);
 
 /* Emoji Celebration */
+
 function startCelebration(){
   const emojis = ["🎉","💖","🎂","✨","🧸","💋","🎈"];
+
   for(let i=0;i<70;i++){
-    const e = document.createElement("div");
-    e.className = "emoji";
-    e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    e.style.left = Math.random()*100 + "vw";
-    e.style.bottom = "-20px";
-    e.style.animationDuration = (3 + Math.random()*2) + "s";
-    document.body.appendChild(e);
-    setTimeout(()=>e.remove(),5000);
+    setTimeout(() => {
+      const e = document.createElement("div");
+      e.className = "emoji";
+      e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      e.style.left = Math.random()*100 + "vw";
+      e.style.bottom = "-40px";
+
+      // ⬇ slower + smoother animation
+      e.style.animationDuration = (6 + Math.random()*4) + "s";
+
+      document.body.appendChild(e);
+      setTimeout(()=>e.remove(),10000);
+    }, Math.random() * 2500); // ⬅ spread emoji start time
   }
 }
-
 /* Popup Flow */
 function openChoices(){
   popup.style.display = "flex";
