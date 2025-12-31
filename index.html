@@ -61,7 +61,7 @@ button:hover{
   box-shadow:0 8px 20px rgba(255,79,139,0.4);
 }
 
-/* Emojis */
+/* Floating emojis / hearts */
 .emoji{
   position:fixed;
   font-size:2rem;
@@ -119,11 +119,10 @@ video{
   margin-bottom:15px;
 }
 
-/* 💖 Memories section */
+/* Memories */
 .memories{
   max-height:60vh;
   overflow-y:auto;
-  scroll-behavior:smooth;
   padding-right:8px;
 }
 
@@ -142,16 +141,26 @@ video{
 .memory img{
   width:100%;
   border-radius:18px;
-  margin-bottom:10px;
-}
-
-.memory p{
-  font-size:1.1rem;
-  line-height:1.6;
 }
 
 @keyframes fadeUp{
   to{opacity:1;transform:translateY(0);}
+}
+
+/* I LOVE YOU ending animation */
+#loveEnding{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:4rem;
+  font-weight:700;
+  color:white;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 1s ease;
 }
 </style>
 </head>
@@ -173,20 +182,28 @@ video{
   <div class="popup-box" id="popupContent"></div>
 </div>
 
+<div id="loveEnding">I LOVE YOU ❤️</div>
+
 <script>
-const targetTime = new Date("2025-12-31T06:28:00+05:30").getTime();
+/* 🔥 CHANGE DATE & TIME HERE 🔥
+   Format: new Date(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND)
+   MONTH starts from 0 (Jan = 0, Dec = 11)
+*/
+const targetTime = new Date(2025, 11, 31, 6, 28, 0).getTime();
 
 const countdownEl = document.getElementById("countdown");
 const countdownScreen = document.getElementById("countdownScreen");
 const birthdayScreen = document.getElementById("birthdayScreen");
 const popup = document.getElementById("popup");
 const popupContent = document.getElementById("popupContent");
+const loveEnding = document.getElementById("loveEnding");
 
 let done=false;
 
 const timer=setInterval(()=>{
-  const diff=targetTime-Date.now();
-  if(diff<=0 && !done){
+  const diff = targetTime - Date.now();
+
+  if(diff <= 0 && !done){
     clearInterval(timer);
     countdownScreen.classList.add("hidden");
     birthdayScreen.classList.remove("hidden");
@@ -194,9 +211,13 @@ const timer=setInterval(()=>{
     celebrate();
     return;
   }
-  if(diff>0){
-    countdownEl.textContent=
-      `${Math.floor(diff/3600000)}h ${Math.floor(diff/60000)%60}m ${Math.floor(diff/1000)%60}s`;
+
+  if(diff > 0){
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff / (1000*60*60)) % 24);
+    const minutes = Math.floor((diff / (1000*60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+    countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
   }
 },1000);
 
@@ -222,6 +243,7 @@ function openChoices(){
     <button onclick="showVideo()">🎬 Watch Video</button><br><br>
     <button onclick="showMessage()">💌 Read Message</button><br><br>
     <button onclick="showMemories()">📸 Our Memories</button><br><br>
+    <button onclick="showEnding()">❤️ Final Surprise</button><br><br>
     <button class="back-btn" onclick="closePopup()">⬅ Back</button>
   `;
 }
@@ -229,7 +251,7 @@ function openChoices(){
 function showVideo(){
   popupContent.innerHTML=`
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
-    <video controls autoplay>
+    <video controls muted playsinline>
       <source src="video.mp4" type="video/mp4">
     </video>
   `;
@@ -240,8 +262,7 @@ function showMessage(){
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
     <div class="message">
       My love 🥹❤️<br><br>
-      Loving you feels like home,  
-      like peace, like everything I ever wished for 🧿✨<br><br>
+      Loving you feels like home, peace, and everything I ever wished for 🧿✨<br><br>
       Happy Birthday my forever 💖🎂
     </div>
   `;
@@ -251,34 +272,44 @@ function showMemories(){
   popupContent.innerHTML=`
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
     <h2>Our Little Forever 💞</h2>
-
     <div class="memories">
-      <div class="memory">
-        <img src="photo1.jpg">
-        <p>The moment I knew my heart was safe with you 🥹❤️</p>
-      </div>
-
-      <div class="memory">
-        <img src="photo2.jpg">
-        <p>Every laugh with you is my favorite sound 💖</p>
-      </div>
-
-      <div class="memory">
-        <img src="photo3.jpg">
-        <p>You make ordinary days feel magical 🧿✨</p>
-      </div>
-
-      <div class="memory">
-        <img src="photo4.jpg">
-        <p>No matter where life goes, I want it to be with you 💞</p>
-      </div>
+      <div class="memory"><img src="photo1.jpg" alt="Our first memory"></div>
+      <div class="memory"><img src="photo2.jpg" alt="Our laughter"></div>
+      <div class="memory"><img src="photo3.jpg" alt="Our happiness"></div>
+      <div class="memory"><img src="photo4.jpg" alt="Our forever"></div>
     </div>
   `;
+}
+
+function showEnding(){
+  popup.style.display="none";
+  loveEnding.style.opacity="1";
+
+  // Floating hearts
+  for(let i=0;i<30;i++){
+    setTimeout(()=>{
+      const heart=document.createElement("div");
+      heart.className="emoji";
+      heart.textContent="❤️";
+      heart.style.left=Math.random()*100+"vw";
+      heart.style.bottom="-20px";
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(),6000);
+    },Math.random()*2000);
+  }
+
+  setTimeout(()=>{
+    loveEnding.style.opacity="0";
+  },4000);
 }
 
 function closePopup(){
   popup.style.display="none";
 }
+
+popup.addEventListener("click", e=>{
+  if(e.target === popup) closePopup();
+});
 </script>
 
 </body>
