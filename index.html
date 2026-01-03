@@ -375,12 +375,11 @@ function showMemories(){
 function showEnding(){
   popup.style.display = "none";
   birthdayScreen.classList.add("hidden");
-  countdownScreen.classList.add("hidden");   // Hide countdown too
+  countdownScreen.classList.add("hidden");
   loveEnding.style.opacity = "1";
-  loveEnding.style.pointerEvents = "auto";   // allow animation if needed
+  loveEnding.style.pointerEvents = "auto";
 
   // Floating hearts
-  const hearts = [];
   const heartInterval = setInterval(()=>{
     const heart = document.createElement("div");
     heart.className = "emoji";
@@ -389,9 +388,15 @@ function showEnding(){
     heart.style.bottom = "-20px";
     heart.style.fontSize = (Math.random()*1.5 + 1.5) + "rem";
     document.body.appendChild(heart);
-    hearts.push(heart);
     setTimeout(()=>heart.remove(),7000);
   }, 250);
+
+  // Stop hearts and hide loveEnding after 4 seconds
+  setTimeout(()=>{
+    clearInterval(heartInterval);
+    loveEnding.style.opacity = "0";
+  }, 4000);
+  }
 
   // Stop hearts after 4 seconds
   setTimeout(()=>{
