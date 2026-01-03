@@ -114,6 +114,9 @@ button:hover{
   width:90%;
   animation:fadeIn 0.4s ease;
   text-align:center;
+  max-height:80vh;
+  display:flex;
+  flex-direction:column;
 }
 
 @keyframes fadeIn{
@@ -131,8 +134,11 @@ video{
 
 .message{
   font-size:1.3rem;
-  line-height:1.7;
+  line-height:1.8;
   text-align:left;
+  max-height:55vh;
+  overflow-y:auto;
+  padding-right:10px;
 }
 
 .back-btn{
@@ -141,6 +147,7 @@ video{
   padding:10px 22px;
   font-size:1rem;
   margin-bottom:15px;
+  flex-shrink:0;
 }
 
 .memories{
@@ -223,12 +230,9 @@ function updateCountdown(){
   const diff = targetTime - Date.now();
   if(diff <= 0 && !done){
     clearInterval(timer);
-    countdownEl.textContent = "🎉 It's time! 🎉";
-    setTimeout(()=>{
-      countdownScreen.classList.add("hidden");
-      birthdayScreen.classList.remove("hidden");
-      celebrate();
-    },1000);
+    countdownScreen.classList.add("hidden");
+    birthdayScreen.classList.remove("hidden");
+    celebrate();
     done = true;
     return;
   }
@@ -365,7 +369,7 @@ function closePopup(){
   popup.style.display="none";
 }
 
-popup.addEventListener("click",e=>{
+popup.addEventListener("click", e=>{
   if(e.target===popup) closePopup();
 });
 
@@ -373,4 +377,4 @@ surpriseBtn.addEventListener("click", openChoices);
 </script>
 
 </body>
-  </html>
+</html>
