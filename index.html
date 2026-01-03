@@ -27,7 +27,6 @@ body{
   overflow:hidden;
 }
 
-/* 🌸 Cute headings */
 h1, h2{
   font-family:'Pacifico',cursive;
   letter-spacing:1px;
@@ -53,7 +52,6 @@ h1{
 
 .hidden{display:none;}
 
-/* 💖 Buttons */
 button{
   background:linear-gradient(135deg,#fff,#ffe6ee);
   color:#ff4f8b;
@@ -71,7 +69,6 @@ button:hover{
   box-shadow:0 12px 30px rgba(255,79,139,0.45);
 }
 
-/* Floating emojis */
 .emoji{
   position:fixed;
   font-size:2rem;
@@ -84,7 +81,6 @@ button:hover{
   to{transform:translateY(-120vh);opacity:0;}
 }
 
-/* Sparkles for popups */
 .sparkle{
   position:fixed;
   font-size:1.5rem;
@@ -98,7 +94,6 @@ button:hover{
   to{opacity:0; transform:scale(1.5) translateY(-80px);}
 }
 
-/* Popup */
 .popup{
   display:none;
   position:fixed;
@@ -124,7 +119,6 @@ button:hover{
   to{opacity:1;transform:scale(1);}
 }
 
-/* 🎬 Video aesthetic */
 video{
   width:100%;
   border-radius:18px;
@@ -147,14 +141,12 @@ video{
   margin-bottom:15px;
 }
 
-/* 📸 Memories */
 .memories{
   max-height:60vh;
   overflow-y:auto;
   padding-right:8px;
 }
 
-/* 🌸 Polaroid-style memories */
 .memory{
   margin-bottom:30px;
   background:white;
@@ -168,7 +160,6 @@ video{
   border-radius:18px;
 }
 
-/* Caption */
 .caption{
   margin-top:10px;
   font-size:1.1rem;
@@ -177,7 +168,6 @@ video{
   line-height:1.5;
 }
 
-/* 💖 Ending */
 #loveEnding{
   position:fixed;
   inset:0;
@@ -226,10 +216,10 @@ const loveEnding = document.getElementById("loveEnding");
 
 let done=false;
 
-/* ✅ Countdown works on page load */
 function updateCountdown(){
   const diff = targetTime - Date.now();
   if(diff <= 0 && !done){
+    countdownEl.textContent = "🎉 It's time! 🎉";
     clearInterval(timer);
     countdownScreen.classList.add("hidden");
     birthdayScreen.classList.remove("hidden");
@@ -246,11 +236,10 @@ function updateCountdown(){
   }
 }
 
-/* Update countdown every second */
+const timer=setInterval(updateCountdown, 1000);
 updateCountdown();
-const timer=setInterval(updateCountdown,1000);
 
-/* 🎉 Celebration */
+/* Celebration 🎉 */
 function celebrate(){
   const emojis=["🎉","💖","🎂","✨","🧸","💋","🎈"];
   for(let i=0;i<70;i++){
@@ -266,7 +255,7 @@ function celebrate(){
   }
 }
 
-/* 💗 Soft floating hearts always */
+/* Floating hearts 💗 */
 setInterval(()=>{
   const heart=document.createElement("div");
   heart.className="emoji";
@@ -277,7 +266,7 @@ setInterval(()=>{
   setTimeout(()=>heart.remove(),7000);
 },2500);
 
-/* ✨ Sparkles on popup open */
+/* Sparkles ✨ */
 function createSparkles(){
   for(let i=0;i<15;i++){
     const sparkle=document.createElement("div");
@@ -290,6 +279,7 @@ function createSparkles(){
   }
 }
 
+/* Popups */
 function openChoices(){
   createSparkles();
   popup.style.display="flex";
@@ -309,11 +299,11 @@ function showVideo(){
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
     <video controls autoplay muted playsinline>
       <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
     </video>
   `;
 }
 
-/* 💌 Fixed & emotional love letter with sparkles */
 function showMessage(){
   createSparkles();
   popupContent.innerHTML=`
@@ -345,19 +335,19 @@ function showMemories(){
     <h2>Our Little Forever 💞</h2>
     <div class="memories">
       <div class="memory">
-        <img src="image1.jpg-01 (1).jpg">
+        <img src="image1.jpg">
         <p class="caption">The moment our forever quietly began 💫❤️</p>
       </div>
       <div class="memory">
-        <img src="image2.jpg-01.jpg">
+        <img src="image2.jpg">
         <p class="caption">Your smile is my favorite place to get lost 🥹✨</p>
       </div>
       <div class="memory">
-        <img src="image3.jpg-01.jpg">
+        <img src="image3.jpg">
         <p class="caption">Every laugh with you feels like a blessing 🧿💖</p>
       </div>
       <div class="memory">
-        <img src="image4.jpg-01.jpg">
+        <img src="image4.jpg">
         <p class="caption">Still choosing you. Every day. Forever. ♾️❤️</p>
       </div>
     </div>
