@@ -372,25 +372,37 @@ function showMemories(){
   `;
 }
 
-/* ✨ Cinematic final surprise with floating hearts ✨ */
 function showEnding(){
-  popup.style.display="none";
+  popup.style.display = "none";
   birthdayScreen.classList.add("hidden");
-  loveEnding.style.opacity="1";
+  countdownScreen.classList.add("hidden");   // Hide countdown too
+  loveEnding.style.opacity = "1";
+  loveEnding.style.pointerEvents = "auto";   // allow animation if needed
 
   // Floating hearts
   const hearts = [];
   const heartInterval = setInterval(()=>{
-    const heart=document.createElement("div");
-    heart.className="emoji";
-    heart.textContent="💗";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.bottom="-20px";
-    heart.style.fontSize=(Math.random()*1.5 + 1.5)+"rem";
+    const heart = document.createElement("div");
+    heart.className = "emoji";
+    heart.textContent = "💗";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.bottom = "-20px";
+    heart.style.fontSize = (Math.random()*1.5 + 1.5) + "rem";
     document.body.appendChild(heart);
     hearts.push(heart);
     setTimeout(()=>heart.remove(),7000);
-  },250);
+  }, 250);
+
+  // Stop hearts after 4 seconds
+  setTimeout(()=>{
+    clearInterval(heartInterval);
+  }, 4000);
+
+  // Hide loveEnding after 4 seconds
+  setTimeout(()=>{
+    loveEnding.style.opacity = "0";
+  }, 4000);
+}
 
   // Hide loveEnding after 4s and stop hearts
   setTimeout(()=>{
