@@ -3,81 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Aduu 💖</title>
+<title>Happiest Birthday Majhya Aagau Bokya 🥹💖</title>
 
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
+*{
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+  margin:0;
+  padding:0;
+}
 
 body{
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb);
-  overflow:hidden;
-  color:white;
   text-align:center;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb);
+  color:white;
+  overflow:hidden;
 }
 
-h1{font-family:Pacifico}
+h1, h2{
+  font-family:'Pacifico',cursive;
+  letter-spacing:1px;
+}
+
+h1{
+  font-size:3rem;
+  margin-bottom:20px;
+  text-shadow:0 4px 15px rgba(255,255,255,0.35);
+}
+
+#countdown{
+  font-size:3.5rem;
+  font-weight:700;
+  margin-top:20px;
+  text-shadow:0 6px 20px rgba(255,255,255,0.4);
+}
+
+.screen{
+  max-width:900px;
+  padding:30px;
+}
+
+.hidden{display:none;}
 
 button{
-  background:white;
+  background:linear-gradient(135deg,#fff,#ffe6ee);
   color:#ff4f8b;
   border:none;
-  padding:15px 30px;
-  font-size:1.1rem;
+  padding:15px 32px;
+  font-size:1.15rem;
   border-radius:40px;
   cursor:pointer;
-  z-index:10;
-  position:relative;
+  margin-top:20px;
+  transition:0.3s ease;
 }
 
-.hidden{display:none}
+button:hover{
+  transform:scale(1.1);
+  box-shadow:0 12px 30px rgba(255,79,139,0.45);
+}
 
-#countdown{font-size:3rem;font-weight:700}
-
-.screen{z-index:5}
-
-/* 🎈 FLOATING EMOJIS */
 .emoji{
   position:fixed;
-  bottom:-50px;
   font-size:2rem;
-  animation:float 6s linear infinite;
+  animation:floatUp 6s ease-out forwards;
   pointer-events:none;
-  z-index:1;
 }
 
-@keyframes float{
-  from{transform:translateY(0)}
-  to{transform:translateY(-120vh)}
+@keyframes floatUp{
+  from{transform:translateY(40px);opacity:1;}
+  to{transform:translateY(-120vh);opacity:0;}
 }
 
-/* POPUP */
+.sparkle{
+  position:fixed;
+  font-size:1.5rem;
+  pointer-events:none;
+  animation:sparkleAnim 2s ease-out forwards;
+  z-index:100;
+}
+
+@keyframes sparkleAnim{
+  from{opacity:1; transform:scale(0.5) translateY(0);}
+  to{opacity:0; transform:scale(1.5) translateY(-80px);}
+}
+
 .popup{
+  display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.6);
-  display:none;
+  background:rgba(0,0,0,0.65);
   justify-content:center;
   align-items:center;
-  z-index:20;
+  z-index:50;
 }
 
 .popup-box{
   background:white;
   color:#ff4f8b;
-  padding:25px;
-  border-radius:20px;
+  padding:30px;
+  border-radius:22px;
+  max-width:540px;
   width:90%;
-  max-width:500px;
+  animation:fadeIn 0.4s ease;
 }
 
-.back{
-  margin-bottom:10px;
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.9);}
+  to{opacity:1;transform:scale(1);}
+}
+
+video{
+  width:100%;
+  border-radius:18px;
+  margin-top:15px;
+  box-shadow:0 15px 40px rgba(255,79,139,0.4);
+  filter:brightness(1.05) saturate(1.1);
+}
+
+.message{
+  font-size:1.3rem;
+  line-height:1.7;
+  text-align:left;
+}
+
+.back-btn{
+  background:#ffe4ec;
+  color:#ff4f8b;
+  padding:10px 22px;
+  font-size:1rem;
+  margin-bottom:15px;
+}
+
+.memories{
+  max-height:60vh;
+  overflow-y:auto;
+  padding-right:8px;
+}
+
+.memory{
+  margin-bottom:30px;
+  background:white;
+  padding:12px;
+  border-radius:22px;
+  box-shadow:0 10px 25px rgba(255,79,139,0.25);
+}
+
+.memory img{
+  width:100%;
+  border-radius:18px;
+}
+
+.caption{
+  margin-top:10px;
+  font-size:1.1rem;
+  color:#ff2f6d;
+  font-weight:500;
+  line-height:1.5;
+}
+
+#loveEnding{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:4rem;
+  font-weight:700;
+  color:white;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 1s ease;
 }
 </style>
 </head>
@@ -85,90 +188,185 @@ button{
 <body>
 
 <div class="screen" id="countdownScreen">
-  <h1>Something magical is coming 💫</h1>
-  <div id="countdown"></div>
+  <h1>Something magical is coming… 💫💖</h1>
+  <div id="countdown">Wait for the surprise ☺️🎁</div>
 </div>
 
 <div class="screen hidden" id="birthdayScreen">
-  <h1>Happy Birthday Aduu 🥹💖</h1>
-  <button onclick="openChoices()">Surprise 🎁</button>
+  <h1>Happiest Birthday Majhya Aagau Bokya 🥹💖</h1>
+  <p>You are my safe place 🧿✨</p>
+  <button onclick="openChoices()">A little surprise just for you 💝</button>
 </div>
 
 <div class="popup" id="popup">
   <div class="popup-box" id="popupContent"></div>
 </div>
 
+<div id="loveEnding">I love you so much mazi adudiii 🥹❤️</div>
+
 <script>
-/* COUNTDOWN */
-const target = new Date(2026,0,3,12,57,0).getTime();
-const cd = document.getElementById("countdown");
-const cs = document.getElementById("countdownScreen");
-const bs = document.getElementById("birthdayScreen");
+const targetTime = new Date(2026, 0, 3, 13, 05, 0).getTime();
 
-setInterval(()=>{
-  const d = target - Date.now();
-  if(d<=0){
-    cs.classList.add("hidden");
-    bs.classList.remove("hidden");
-    startEmojis();
-  }else{
-    cd.innerText =
-      Math.floor(d/86400000)+"d "+
-      Math.floor(d/3600000%24)+"h "+
-      Math.floor(d/60000%60)+"m "+
-      Math.floor(d/1000%60)+"s";
+const countdownEl = document.getElementById("countdown");
+const countdownScreen = document.getElementById("countdownScreen");
+const birthdayScreen = document.getElementById("birthdayScreen");
+const popup = document.getElementById("popup");
+const popupContent = document.getElementById("popupContent");
+const loveEnding = document.getElementById("loveEnding");
+
+let done=false;
+
+function updateCountdown(){
+  const diff = targetTime - Date.now();
+  if(diff <= 0 && !done){
+    countdownEl.textContent = "🎉 It's time! 🎉";
+    clearInterval(timer);
+    countdownScreen.classList.add("hidden");
+    birthdayScreen.classList.remove("hidden");
+    done=true;
+    celebrate();
+    return;
   }
-},1000);
-
-/* EMOJIS */
-function startEmojis(){
-  const emojis=["💖","🥹","🎉","🎂","✨","🧿"];
-  setInterval(()=>{
-    const e=document.createElement("div");
-    e.className="emoji";
-    e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
-    e.style.left=Math.random()*100+"vw";
-    document.body.appendChild(e);
-    setTimeout(()=>e.remove(),6000);
-  },300);
+  if(diff > 0){
+    const d=Math.floor(diff/(1000*60*60*24));
+    const h=Math.floor((diff/(1000*60*60))%24);
+    const m=Math.floor((diff/(1000*60))%60);
+    const s=Math.floor((diff/1000)%60);
+    countdownEl.textContent=`${d}d ${h}h ${m}m ${s}s`;
+  }
 }
 
-/* POPUP */
-const popup=document.getElementById("popup");
-const pc=document.getElementById("popupContent");
+const timer=setInterval(updateCountdown, 1000);
+updateCountdown();
 
+/* Celebration 🎉 */
+function celebrate(){
+  const emojis=["🎉","💖","🎂","✨","🧸","💋","🎈"];
+  for(let i=0;i<70;i++){
+    setTimeout(()=>{
+      const e=document.createElement("div");
+      e.className="emoji";
+      e.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+      e.style.left=Math.random()*100+"vw";
+      e.style.bottom="-40px";
+      document.body.appendChild(e);
+      setTimeout(()=>e.remove(),10000);
+    },Math.random()*2500);
+  }
+}
+
+/* Floating hearts 💗 */
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="emoji";
+  heart.textContent="💗";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.bottom="-20px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),7000);
+},2500);
+
+/* Sparkles ✨ */
+function createSparkles(){
+  for(let i=0;i<15;i++){
+    const sparkle=document.createElement("div");
+    sparkle.className="sparkle";
+    sparkle.textContent="✨";
+    sparkle.style.left=Math.random()*80 + 10 + "vw";
+    sparkle.style.bottom=Math.random()*50 + 10 + "vh";
+    document.body.appendChild(sparkle);
+    setTimeout(()=>sparkle.remove(),2000);
+  }
+}
+
+/* Popups */
 function openChoices(){
+  createSparkles();
   popup.style.display="flex";
-  pc.innerHTML=`
-  <h2>Choose 💝</h2><br>
-  <button onclick="showMsg()">💌 Message</button><br><br>
-  <button onclick="showVideo()">🎬 Video</button><br><br>
-  <button onclick="showPics()">📸 Memories</button><br><br>
-  <button onclick="closePop()">⬅ Back</button>`;
-}
-
-function showMsg(){
-  pc.innerHTML=`
-  <button class="back" onclick="openChoices()">⬅</button>
-  <p>Happy Birthday my love 🥹❤️<br>
-  You are my forever ♾️</p>`;
+  popupContent.innerHTML=`
+    <h2> Surprise 😁🎁🥳</h2>
+    <button onclick="showVideo()">🎬 Our sweet video</button><br><br>
+    <button onclick="showMessage()">💌 My Love letter to you</button><br><br>
+    <button onclick="showMemories()">📸🥹 Moments we laughed together</button><br><br>
+    <button onclick="showEnding()">❤️ Final Surprise just for you </button><br><br>
+    <button class="back-btn" onclick="closePopup()">⬅ Back</button>
+  `;
 }
 
 function showVideo(){
-  pc.innerHTML=`
-  <button class="back" onclick="openChoices()">⬅</button>
-  <video controls width="100%">
-  <source src="video.mp4">
-  </video>`;
+  createSparkles();
+  popupContent.innerHTML=`
+    <button class="back-btn" onclick="openChoices()">⬅ Back</button>
+    <video controls autoplay muted playsinline>
+      <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  `;
 }
 
-function showPics(){
-  pc.innerHTML=`
-  <button class="back" onclick="openChoices()">⬅</button>
-  <p>Add images here 💖</p>`;
+function showMessage(){
+  createSparkles();
+  popupContent.innerHTML=`
+    <button class="back-btn" onclick="openChoices()">⬅ Back</button>
+    <div class="message">
+My Aduu 🥹❤️<br><br>
+
+From the very first moment, I knew you were my forever.  
+Every little thing you do — your laugh, your silly jokes, the way you care without a word —  
+stays in my heart and makes life so much brighter 🧿✨<br><br>
+
+Being with you feels like home, safe and warm,  
+like the world finally makes sense because you’re in it.  
+I love you quietly, deeply, in every smile, every heartbeat, every breath we share 💖<br><br>
+
+You are my favorite hello and hardest goodbye, my safe place, my joy, my love.  
+Happy Birthday, my heart. I choose you, today, tomorrow, and always ♾️❤️<br><br>
+
+Forever yours,  
+Your Pookie 🥹💞
+    </div>
+  `;
 }
 
-function closePop(){popup.style.display="none";}
+function showMemories(){
+  createSparkles();
+  popupContent.innerHTML=`
+    <button class="back-btn" onclick="openChoices()">⬅ Back</button>
+    <h2>Our Little Forever 💞</h2>
+    <div class="memories">
+      <div class="memory">
+        <img src="image1.jpg-01 (1).jpg">
+        <p class="caption">The moment our forever quietly began 💫❤️</p>
+      </div>
+      <div class="memory">
+        <img src="image2.jpg-01.jpg">
+        <p class="caption">Your smile is my favorite place to get lost 🥹✨</p>
+      </div>
+      <div class="memory">
+        <img src="image3.jpg-01.jpg">
+        <p class="caption">Every laugh with you feels like a blessing 🧿💖</p>
+      </div>
+      <div class="memory">
+        <img src="image4.jpg-01.jpg">
+        <p class="caption">Still choosing you. Every day. Forever. ♾️❤️</p>
+      </div>
+    </div>
+  `;
+}
+
+function showEnding(){
+  popup.style.display="none";
+  loveEnding.style.opacity="1";
+  setTimeout(()=>loveEnding.style.opacity="0",4000);
+}
+
+function closePopup(){
+  popup.style.display="none";
+}
+
+popup.addEventListener("click",e=>{
+  if(e.target===popup) closePopup();
+});
 </script>
 
 </body>
