@@ -84,6 +84,20 @@ button:hover{
   to{transform:translateY(-120vh);opacity:0;}
 }
 
+/* Sparkles for popups */
+.sparkle{
+  position:fixed;
+  font-size:1.5rem;
+  pointer-events:none;
+  animation:sparkleAnim 2s ease-out forwards;
+  z-index:100;
+}
+
+@keyframes sparkleAnim{
+  from{opacity:1; transform:scale(0.5) translateY(0);}
+  to{opacity:0; transform:scale(1.5) translateY(-80px);}
+}
+
 /* Popup */
 .popup{
   display:none;
@@ -122,6 +136,7 @@ video{
 .message{
   font-size:1.3rem;
   line-height:1.7;
+  text-align:left;
 }
 
 .back-btn{
@@ -200,7 +215,7 @@ video{
 <div id="loveEnding">I love you so much mazi adudiii 🥹❤️</div>
 
 <script>
-const targetTime = new Date(2026, 0, 3, 10, 12, 0).getTime();
+const targetTime = new Date(2026, 0, 3, 10, 20, 0).getTime();
 
 const countdownEl = document.getElementById("countdown");
 const countdownScreen = document.getElementById("countdownScreen");
@@ -211,7 +226,8 @@ const loveEnding = document.getElementById("loveEnding");
 
 let done=false;
 
-const timer=setInterval(()=>{
+/* ✅ Countdown works on page load */
+function updateCountdown(){
   const diff = targetTime - Date.now();
   if(diff <= 0 && !done){
     clearInterval(timer);
@@ -228,7 +244,11 @@ const timer=setInterval(()=>{
     const s=Math.floor((diff/1000)%60);
     countdownEl.textContent=`${d}d ${h}h ${m}m ${s}s`;
   }
-},1000);
+}
+
+/* Update countdown every second */
+updateCountdown();
+const timer=setInterval(updateCountdown,1000);
 
 /* 🎉 Celebration */
 function celebrate(){
@@ -257,10 +277,24 @@ setInterval(()=>{
   setTimeout(()=>heart.remove(),7000);
 },2500);
 
+/* ✨ Sparkles on popup open */
+function createSparkles(){
+  for(let i=0;i<15;i++){
+    const sparkle=document.createElement("div");
+    sparkle.className="sparkle";
+    sparkle.textContent="✨";
+    sparkle.style.left=Math.random()*80 + 10 + "vw";
+    sparkle.style.bottom=Math.random()*50 + 10 + "vh";
+    document.body.appendChild(sparkle);
+    setTimeout(()=>sparkle.remove(),2000);
+  }
+}
+
 function openChoices(){
+  createSparkles();
   popup.style.display="flex";
   popupContent.innerHTML=`
-    <h2> surprise 😁🎁🥳</h2>
+    <h2> Surprise 😁🎁🥳</h2>
     <button onclick="showVideo()">🎬 Our sweet video</button><br><br>
     <button onclick="showMessage()">💌 My Love letter to you</button><br><br>
     <button onclick="showMemories()">📸🥹 Moments we laughed together</button><br><br>
@@ -270,6 +304,7 @@ function openChoices(){
 }
 
 function showVideo(){
+  createSparkles();
   popupContent.innerHTML=`
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
     <video controls autoplay muted playsinline>
@@ -278,26 +313,33 @@ function showVideo(){
   `;
 }
 
+/* 💌 Fixed & emotional love letter with sparkles */
 function showMessage(){
+  createSparkles();
   popupContent.innerHTML=`
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
     <div class="message">
 My Aduu 🥹❤️<br><br>
 
-Every little thing you do stays in my heart —  
-the way you laugh, the way you care without saying it,  
-how you make even ordinary days feel magical.  
-Being with you feels like home, like the world finally makes sense 🧿✨<br><br>
+From the very first moment, I knew you were my forever.  
+Every little thing you do — your laugh, your silly jokes, the way you care without a word —  
+stays in my heart and makes life so much brighter 🧿✨<br><br>
 
-I don’t just love you loudly, I love you quietly,  
-in every thought, every smile, every little moment we share.  
-You are my forever, my safe place, my favorite hello and hardest goodbye 💖<br><br>
+Being with you feels like home, safe and warm,  
+like the world finally makes sense because you’re in it.  
+I love you quietly, deeply, in every smile, every heartbeat, every breath we share 💖<br><br>
 
-Happy Birthday, my heart. I choose you. Always. ♾️❤️
-</div>;
+You are my favorite hello and hardest goodbye, my safe place, my joy, my love.  
+Happy Birthday, my heart. I choose you, today, tomorrow, and always ♾️❤️<br><br>
+
+Forever yours,  
+Your Pookie 🥹💞
+    </div>
+  `;
 }
 
 function showMemories(){
+  createSparkles();
   popupContent.innerHTML=`
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
     <h2>Our Little Forever 💞</h2>
@@ -338,4 +380,4 @@ popup.addEventListener("click",e=>{
 </script>
 
 </body>
-  </html>
+</html>
