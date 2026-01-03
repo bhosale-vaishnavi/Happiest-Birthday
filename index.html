@@ -74,6 +74,7 @@ button:hover{
   font-size:2rem;
   animation:floatUp 6s ease-out forwards;
   pointer-events:none;
+  z-index:10;
 }
 
 @keyframes floatUp{
@@ -112,6 +113,7 @@ button:hover{
   max-width:540px;
   width:90%;
   animation:fadeIn 0.4s ease;
+  text-align:center;
 }
 
 @keyframes fadeIn{
@@ -195,7 +197,7 @@ video{
 <div class="screen hidden" id="birthdayScreen">
   <h1>Happiest Birthday Majhya Aagau Bokya 🥹💖</h1>
   <p>You are my safe place 🧿✨</p>
-  <button onclick="openChoices()">A little surprise just for you 💝</button>
+  <button id="surpriseBtn">A little surprise just for you 💝</button>
 </div>
 
 <div class="popup" id="popup">
@@ -205,7 +207,7 @@ video{
 <div id="loveEnding">I love you so much mazi adudiii 🥹❤️</div>
 
 <script>
-const targetTime = new Date(2026, 0, 3, 13, 05, 0).getTime();
+const targetTime = new Date(2026, 0, 3, 10, 46, 0).getTime();
 
 const countdownEl = document.getElementById("countdown");
 const countdownScreen = document.getElementById("countdownScreen");
@@ -213,30 +215,33 @@ const birthdayScreen = document.getElementById("birthdayScreen");
 const popup = document.getElementById("popup");
 const popupContent = document.getElementById("popupContent");
 const loveEnding = document.getElementById("loveEnding");
+const surpriseBtn = document.getElementById("surpriseBtn");
 
-let done=false;
+let done = false;
 
 function updateCountdown(){
   const diff = targetTime - Date.now();
   if(diff <= 0 && !done){
-    countdownEl.textContent = "🎉 It's time! 🎉";
     clearInterval(timer);
-    countdownScreen.classList.add("hidden");
-    birthdayScreen.classList.remove("hidden");
-    done=true;
-    celebrate();
+    countdownEl.textContent = "🎉 It's time! 🎉";
+    setTimeout(()=>{
+      countdownScreen.classList.add("hidden");
+      birthdayScreen.classList.remove("hidden");
+      celebrate();
+    },1000);
+    done = true;
     return;
   }
   if(diff > 0){
-    const d=Math.floor(diff/(1000*60*60*24));
-    const h=Math.floor((diff/(1000*60*60))%24);
-    const m=Math.floor((diff/(1000*60))%60);
-    const s=Math.floor((diff/1000)%60);
-    countdownEl.textContent=`${d}d ${h}h ${m}m ${s}s`;
+    const d = Math.floor(diff/(1000*60*60*24));
+    const h = Math.floor((diff/(1000*60*60))%24);
+    const m = Math.floor((diff/(1000*60))%60);
+    const s = Math.floor((diff/1000)%60);
+    countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
   }
 }
 
-const timer=setInterval(updateCountdown, 1000);
+const timer = setInterval(updateCountdown, 1000);
 updateCountdown();
 
 /* Celebration 🎉 */
@@ -284,7 +289,7 @@ function openChoices(){
   createSparkles();
   popup.style.display="flex";
   popupContent.innerHTML=`
-    <h2> Surprise 😁🎁🥳</h2>
+    <h2>Surprise 😁🎁🥳</h2>
     <button onclick="showVideo()">🎬 Our sweet video</button><br><br>
     <button onclick="showMessage()">💌 My Love letter to you</button><br><br>
     <button onclick="showMemories()">📸🥹 Moments we laughed together</button><br><br>
@@ -297,7 +302,7 @@ function showVideo(){
   createSparkles();
   popupContent.innerHTML=`
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
-    <video controls autoplay muted playsinline>
+    <video controls autoplay playsinline>
       <source src="video.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -310,18 +315,14 @@ function showMessage(){
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
     <div class="message">
 My Aduu 🥹❤️<br><br>
-
 From the very first moment, I knew you were my forever.  
 Every little thing you do — your laugh, your silly jokes, the way you care without a word —  
 stays in my heart and makes life so much brighter 🧿✨<br><br>
-
 Being with you feels like home, safe and warm,  
 like the world finally makes sense because you’re in it.  
 I love you quietly, deeply, in every smile, every heartbeat, every breath we share 💖<br><br>
-
 You are my favorite hello and hardest goodbye, my safe place, my joy, my love.  
 Happy Birthday, my heart. I choose you, today, tomorrow, and always ♾️❤️<br><br>
-
 Forever yours,  
 Your Pookie 🥹💞
     </div>
@@ -367,7 +368,9 @@ function closePopup(){
 popup.addEventListener("click",e=>{
   if(e.target===popup) closePopup();
 });
+
+surpriseBtn.addEventListener("click", openChoices);
 </script>
 
 </body>
-</html>
+  </html>
