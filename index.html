@@ -376,10 +376,11 @@ function showEnding(){
   popup.style.display = "none";
   birthdayScreen.classList.add("hidden");
   countdownScreen.classList.add("hidden");
-  loveEnding.style.opacity = "1";
-  loveEnding.style.pointerEvents = "auto";
 
-  // Floating hearts
+  loveEnding.style.opacity = "1";
+  loveEnding.style.pointerEvents = "none";
+
+  // Floating hearts 💗
   const heartInterval = setInterval(()=>{
     const heart = document.createElement("div");
     heart.className = "emoji";
@@ -391,13 +392,17 @@ function showEnding(){
     setTimeout(()=>heart.remove(),7000);
   }, 250);
 
-  // Stop hearts and hide loveEnding after 4 seconds
+  // ⏳ After 6.5 seconds → fade out + return
   setTimeout(()=>{
     clearInterval(heartInterval);
+
     loveEnding.style.opacity = "0";
-    loveEnding.style.pointerEvents = "none";
-  }, 4000);
-}
+
+    setTimeout(()=>{
+      birthdayScreen.classList.remove("hidden");
+    }, 1000); // wait for fade animation
+  }, 6500);
+  }
 
 function closePopup(){
   popup.style.display="none";
