@@ -227,7 +227,7 @@ video{
 <div id="loveEnding">I love you so much mazi adudiii 🥹❤️</div>
 
 <script>
-const targetTime = new Date(2026, 0, 3, 17, 30, 0).getTime();
+const targetTime = new Date(2026, 0, 3, 17, 39, 0).getTime();
 
 const countdownEl = document.getElementById("countdown");
 const countdownScreen = document.getElementById("countdownScreen");
@@ -397,31 +397,6 @@ function showEnding(){
     loveEnding.style.opacity = "0";
     loveEnding.style.pointerEvents = "none";
   }, 4000);
-  }
-
-  // Stop hearts and hide loveEnding after 4 seconds
-  setTimeout(()=>{
-    clearInterval(heartInterval);
-    loveEnding.style.opacity = "0";
-  }, 4000);
-  }
-
-  // Stop hearts after 4 seconds
-  setTimeout(()=>{
-    clearInterval(heartInterval);
-  }, 4000);
-
-  // Hide loveEnding after 4 seconds
-  setTimeout(()=>{
-    loveEnding.style.opacity = "0";
-  }, 4000);
-}
-
-  // Hide loveEnding after 4s and stop hearts
-  setTimeout(()=>{
-    loveEnding.style.opacity="0";
-    clearInterval(heartInterval);
-  },4000);
 }
 
 function closePopup(){
