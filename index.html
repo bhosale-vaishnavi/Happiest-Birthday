@@ -139,6 +139,8 @@ video{
   max-height:55vh;
   overflow-y:auto;
   padding-right:10px;
+  padding-left:10px;
+  padding-top:5px;
 }
 
 .back-btn{
@@ -177,19 +179,30 @@ video{
   line-height:1.5;
 }
 
+/* ✨ Cinematic final surprise ✨ */
 #loveEnding{
   position:fixed;
   inset:0;
-  background:linear-gradient(135deg,#ff758c,#ff7eb3);
   display:flex;
   justify-content:center;
   align-items:center;
   font-size:4rem;
-  font-weight:700;
+  font-weight:900;
   color:white;
   opacity:0;
   pointer-events:none;
   transition:opacity 1s ease;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 15px rgba(255,255,255,0.4), 0 0 25px rgba(255,79,139,0.5);
+  animation:pulseText 1.5s infinite;
+  z-index:1000;
+}
+
+@keyframes pulseText{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.1);}
 }
 </style>
 </head>
@@ -214,7 +227,7 @@ video{
 <div id="loveEnding">I love you so much mazi adudiii 🥹❤️</div>
 
 <script>
-const targetTime = new Date(2026, 0, 3, 14, 0, 0).getTime();
+const targetTime = new Date(2026, 0, 3, 14, 17, 0).getTime();
 
 const countdownEl = document.getElementById("countdown");
 const countdownScreen = document.getElementById("countdownScreen");
@@ -359,10 +372,30 @@ function showMemories(){
   `;
 }
 
+/* ✨ Cinematic final surprise with floating hearts ✨ */
 function showEnding(){
   popup.style.display="none";
   loveEnding.style.opacity="1";
-  setTimeout(()=>loveEnding.style.opacity="0",4000);
+
+  // Floating hearts
+  const hearts = [];
+  const heartInterval = setInterval(()=>{
+    const heart=document.createElement("div");
+    heart.className="emoji";
+    heart.textContent="💗";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.bottom="-20px";
+    heart.style.fontSize=(Math.random()*1.5 + 1.5)+"rem";
+    document.body.appendChild(heart);
+    hearts.push(heart);
+    setTimeout(()=>heart.remove(),7000);
+  },250);
+
+  // Hide loveEnding after 4s and stop hearts
+  setTimeout(()=>{
+    loveEnding.style.opacity="0";
+    clearInterval(heartInterval);
+  },4000);
 }
 
 function closePopup(){
