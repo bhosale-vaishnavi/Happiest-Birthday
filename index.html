@@ -138,9 +138,7 @@ video{
   text-align:left;
   max-height:55vh;
   overflow-y:auto;
-  padding-right:10px;
-  padding-left:10px;
-  padding-top:5px;
+  padding:5px 10px;
 }
 
 .back-btn{
@@ -192,7 +190,7 @@ video{
   opacity:0;
   pointer-events:none;
   transition:opacity 1s ease;
-  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  background:none;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   text-shadow:0 0 15px rgba(255,255,255,0.4), 0 0 25px rgba(255,79,139,0.5);
@@ -372,6 +370,7 @@ function showMemories(){
   `;
 }
 
+/* ✨ Cinematic final surprise with floating hearts ✨ */
 function showEnding(){
   popup.style.display = "none";
   birthdayScreen.classList.add("hidden");
@@ -396,24 +395,6 @@ function showEnding(){
     clearInterval(heartInterval);
     loveEnding.style.opacity = "0";
   }, 4000);
-  }
-
-  // Stop hearts after 4 seconds
-  setTimeout(()=>{
-    clearInterval(heartInterval);
-  }, 4000);
-
-  // Hide loveEnding after 4 seconds
-  setTimeout(()=>{
-    loveEnding.style.opacity = "0";
-  }, 4000);
-}
-
-  // Hide loveEnding after 4s and stop hearts
-  setTimeout(()=>{
-    loveEnding.style.opacity="0";
-    clearInterval(heartInterval);
-  },4000);
 }
 
 function closePopup(){
