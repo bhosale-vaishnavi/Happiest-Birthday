@@ -3,127 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happiest Birthday Majhya Aagau Bokya 🥹💖</title>
+<title>Happy Birthday Aduu 💖</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
-*{
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-  margin:0;
-  padding:0;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
 
 body{
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  text-align:center;
   background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb);
-  color:white;
   overflow:hidden;
+  color:white;
+  text-align:center;
 }
 
-h1,h2{
-  font-family:'Pacifico',cursive;
-}
-
-#countdown{
-  font-size:3.5rem;
-  font-weight:700;
-}
-
-.screen{max-width:900px;padding:30px;}
-.hidden{display:none;}
+h1{font-family:Pacifico}
 
 button{
-  background:linear-gradient(135deg,#fff,#ffe6ee);
+  background:white;
   color:#ff4f8b;
   border:none;
-  padding:15px 32px;
+  padding:15px 30px;
   font-size:1.1rem;
   border-radius:40px;
   cursor:pointer;
+  z-index:10;
+  position:relative;
 }
 
+.hidden{display:none}
+
+#countdown{font-size:3rem;font-weight:700}
+
+.screen{z-index:5}
+
+/* 🎈 FLOATING EMOJIS */
+.emoji{
+  position:fixed;
+  bottom:-50px;
+  font-size:2rem;
+  animation:float 6s linear infinite;
+  pointer-events:none;
+  z-index:1;
+}
+
+@keyframes float{
+  from{transform:translateY(0)}
+  to{transform:translateY(-120vh)}
+}
+
+/* POPUP */
 .popup{
-  display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.65);
+  background:rgba(0,0,0,0.6);
+  display:none;
   justify-content:center;
   align-items:center;
+  z-index:20;
 }
 
 .popup-box{
   background:white;
   color:#ff4f8b;
   padding:25px;
-  border-radius:22px;
-  max-width:550px;
-  width:90%;
-  max-height:80vh;
-  display:flex;
-  flex-direction:column;
-}
-
-/* 🔑 FIXED MESSAGE */
-.message{
-  background:#fff5f8;
-  padding:20px;
-  border-radius:16px;
-  font-size:1.15rem;
-  line-height:1.8;
-  color:#ff2f6d;
-  text-align:left;
-  overflow-y:auto;
-  max-height:55vh;
-}
-
-/* 🔑 Back button always visible */
-.back-btn{
-  background:#ffe4ec;
-  color:#ff4f8b;
-  padding:10px 22px;
-  font-size:1rem;
-  margin-bottom:12px;
-  align-self:flex-start;
-}
-
-.memories{
-  max-height:60vh;
-  overflow-y:auto;
-}
-
-.memory{
-  background:white;
-  padding:12px;
   border-radius:20px;
-  margin-bottom:20px;
+  width:90%;
+  max-width:500px;
 }
 
-.memory img{
-  width:100%;
-  border-radius:16px;
-}
-
-.caption{
-  margin-top:10px;
-  font-weight:500;
-}
-
-#loveEnding{
-  position:fixed;
-  inset:0;
-  background:linear-gradient(135deg,#ff758c,#ff7eb3);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:4rem;
-  opacity:0;
-  transition:opacity 1s;
+.back{
+  margin-bottom:10px;
 }
 </style>
 </head>
@@ -131,98 +85,90 @@ button{
 <body>
 
 <div class="screen" id="countdownScreen">
-  <h1>Something magical is coming… 💫💖</h1>
+  <h1>Something magical is coming 💫</h1>
   <div id="countdown"></div>
 </div>
 
 <div class="screen hidden" id="birthdayScreen">
-  <h1>Happiest Birthday Majhya Aagau Bokya 🥹💖</h1>
-  <button onclick="openChoices()">A little surprise just for you 💝</button>
+  <h1>Happy Birthday Aduu 🥹💖</h1>
+  <button onclick="openChoices()">Surprise 🎁</button>
 </div>
 
 <div class="popup" id="popup">
   <div class="popup-box" id="popupContent"></div>
 </div>
 
-<div id="loveEnding">I love you so much mazi adudiii 🥹❤️</div>
-
 <script>
-const targetTime=new Date(2026,0,3,12,43,0).getTime();
-const countdown=document.getElementById("countdown");
-const popup=document.getElementById("popup");
-const popupContent=document.getElementById("popupContent");
-const cs=document.getElementById("countdownScreen");
-const bs=document.getElementById("birthdayScreen");
+/* COUNTDOWN */
+const target = new Date(2026,0,3,12,57,0).getTime();
+const cd = document.getElementById("countdown");
+const cs = document.getElementById("countdownScreen");
+const bs = document.getElementById("birthdayScreen");
 
 setInterval(()=>{
-  const d=targetTime-Date.now();
+  const d = target - Date.now();
   if(d<=0){
     cs.classList.add("hidden");
     bs.classList.remove("hidden");
+    startEmojis();
   }else{
-    countdown.textContent=Math.floor(d/86400000)+"d "+
-    Math.floor(d/3600000%24)+"h "+
-    Math.floor(d/60000%60)+"m "+
-    Math.floor(d/1000%60)+"s";
+    cd.innerText =
+      Math.floor(d/86400000)+"d "+
+      Math.floor(d/3600000%24)+"h "+
+      Math.floor(d/60000%60)+"m "+
+      Math.floor(d/1000%60)+"s";
   }
 },1000);
 
+/* EMOJIS */
+function startEmojis(){
+  const emojis=["💖","🥹","🎉","🎂","✨","🧿"];
+  setInterval(()=>{
+    const e=document.createElement("div");
+    e.className="emoji";
+    e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+    e.style.left=Math.random()*100+"vw";
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),6000);
+  },300);
+}
+
+/* POPUP */
+const popup=document.getElementById("popup");
+const pc=document.getElementById("popupContent");
+
 function openChoices(){
-popup.style.display="flex";
-popupContent.innerHTML=`
-<h2>Surprise 😁🎁</h2>
-<button onclick="showVideo()">🎬 Video</button><br><br>
-<button onclick="showMessage()">💌 Love Letter</button><br><br>
-<button onclick="showMemories()">📸 Memories</button><br><br>
-<button onclick="closePopup()">⬅ Back</button>`;
+  popup.style.display="flex";
+  pc.innerHTML=`
+  <h2>Choose 💝</h2><br>
+  <button onclick="showMsg()">💌 Message</button><br><br>
+  <button onclick="showVideo()">🎬 Video</button><br><br>
+  <button onclick="showPics()">📸 Memories</button><br><br>
+  <button onclick="closePop()">⬅ Back</button>`;
 }
 
-function showMessage(){
-popupContent.innerHTML=`
-<button class="back-btn" onclick="openChoices()">⬅ Back</button>
-<div class="message">
-<b>My Aduu 🥹❤️</b><br><br>
-
-From the very first moment, I knew you were my forever.  
-Every little thing you do — your laugh, your silly jokes,  
-the way you care without words — lives in my heart 🧿✨<br><br>
-
-Being with you feels like home.  
-Safe. Warm. Complete.  
-You make my world softer and brighter 💖<br><br>
-
-You are my favorite hello,  
-my hardest goodbye,  
-my constant, my comfort, my love ♾️❤️<br><br>
-
-<b>Happy Birthday, my heart.</b><br>
-I choose you — always.<br><br>
-
-Forever yours,  
-<b>Your Pookie 🥹💞</b>
-</div>`;
-}
-
-function showMemories(){
-popupContent.innerHTML=`
-<button class="back-btn" onclick="openChoices()">⬅ Back</button>
-<div class="memories">
-<div class="memory"><img src="image1.jpg-01 (1).jpg"><p class="caption">Our beginning 💖</p></div>
-<div class="memory"><img src="image2.jpg-01.jpg"><p class="caption">Your smile ✨</p></div>
-<div class="memory"><img src="image3.jpg-01.jpg"><p class="caption">Our laughs 🧿</p></div>
-<div class="memory"><img src="image4.jpg-01.jpg"><p class="caption">Forever ♾️</p></div>
-</div>`;
+function showMsg(){
+  pc.innerHTML=`
+  <button class="back" onclick="openChoices()">⬅</button>
+  <p>Happy Birthday my love 🥹❤️<br>
+  You are my forever ♾️</p>`;
 }
 
 function showVideo(){
-popupContent.innerHTML=`
-<button class="back-btn" onclick="openChoices()">⬅ Back</button>
-<video controls autoplay muted width="100%">
-<source src="video.mp4" type="video/mp4">
-</video>`;
+  pc.innerHTML=`
+  <button class="back" onclick="openChoices()">⬅</button>
+  <video controls width="100%">
+  <source src="video.mp4">
+  </video>`;
 }
 
-function closePopup(){popup.style.display="none";}
+function showPics(){
+  pc.innerHTML=`
+  <button class="back" onclick="openChoices()">⬅</button>
+  <p>Add images here 💖</p>`;
+}
+
+function closePop(){popup.style.display="none";}
 </script>
 
 </body>
