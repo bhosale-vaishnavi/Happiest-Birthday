@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happiest Birthday My Pookie 💖</title>
+<title>Happiest Birthday Majhya Aagau Bokya 🥹💖</title>
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
@@ -184,20 +184,20 @@ video{
 
 <div class="screen" id="countdownScreen">
   <h1>Something magical is coming… 💫💖</h1>
-  <div id="countdown">Loading…</div>
+  <div id="countdown">Wait for the surprise ☺️🎁</div>
 </div>
 
 <div class="screen hidden" id="birthdayScreen">
-  <h1>🎉 HAPPY BIRTHDAY MY POOKIE 🎂💖</h1>
-  <p>You are my happiest miracle 🧿✨</p>
-  <button onclick="openChoices()">Something special for you 💝</button>
+  <h1>Happiest Birthday Majhya Aagau Bokya 🥹💖</h1>
+  <p>You are my safe place 🧿✨</p>
+  <button onclick="openChoices()">A little surprise just for you 💝</button>
 </div>
 
 <div class="popup" id="popup">
   <div class="popup-box" id="popupContent"></div>
 </div>
 
-<div id="loveEnding">Forever Us ♾️❤️</div>
+<div id="loveEnding">I love you so much mazi adudiii 🥹❤️</div>
 
 <script>
 const targetTime = new Date(2026, 0, 1, 6, 47, 0).getTime();
@@ -260,11 +260,11 @@ setInterval(()=>{
 function openChoices(){
   popup.style.display="flex";
   popupContent.innerHTML=`
-    <h2>Choose your surprise 💝</h2>
-    <button onclick="showVideo()">🎬 Watch Video</button><br><br>
-    <button onclick="showMessage()">💌 Read Message</button><br><br>
-    <button onclick="showMemories()">📸 Our Memories</button><br><br>
-    <button onclick="showEnding()">❤️ Final Surprise</button><br><br>
+    <h2> surprise 😁🎁🥳</h2>
+    <button onclick="showVideo()">🎬 Our sweet video</button><br><br>
+    <button onclick="showMessage()">💌 My Love letter to you</button><br><br>
+    <button onclick="showMemories()">📸🥹 Moments we laughed together</button><br><br>
+    <button onclick="showEnding()">❤️ Final Surprise just for you </button><br><br>
     <button class="back-btn" onclick="closePopup()">⬅ Back</button>
   `;
 }
@@ -282,11 +282,19 @@ function showMessage(){
   popupContent.innerHTML=`
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
     <div class="message">
-      My love 🥹❤️<br><br>
-      Loving you feels like home, peace, and everything I ever wished for 🧿✨<br><br>
-      Happy Birthday my forever 💖🎂
-    </div>
-  `;
+My Aduu 🥹❤️<br><br>
+
+Every little thing you do stays in my heart —  
+the way you laugh, the way you care without saying it,  
+how you make even ordinary days feel magical.  
+Being with you feels like home, like the world finally makes sense 🧿✨<br><br>
+
+I don’t just love you loudly, I love you quietly,  
+in every thought, every smile, every little moment we share.  
+You are my forever, my safe place, my favorite hello and hardest goodbye 💖<br><br>
+
+Happy Birthday, my heart. I choose you. Always. ♾️❤️
+</div>;
 }
 
 function showMemories(){
