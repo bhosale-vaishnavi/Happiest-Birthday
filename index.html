@@ -5,52 +5,205 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happiest Birthday Majhya Aagau Bokya 🥹💖</title>
 
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
-*{ box-sizing:border-box; font-family:'Poppins',sans-serif; margin:0; padding:0; }
-body{ min-height:100vh; display:flex; justify-content:center; align-items:center; text-align:center; background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb); color:white; overflow:hidden; }
+*{
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+  margin:0;
+  padding:0;
+}
 
-h1,h2{ font-family:'Pacifico',cursive; letter-spacing:1px; }
-h1{ font-size:3rem; margin-bottom:20px; text-shadow:0 4px 15px rgba(255,255,255,0.35); }
-#countdown{ font-size:3.5rem; font-weight:700; margin-top:20px; text-shadow:0 6px 20px rgba(255,255,255,0.4); }
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb);
+  color:white;
+  overflow:hidden;
+}
 
-.screen{ max-width:900px; padding:30px; }
+h1, h2{
+  font-family:'Pacifico',cursive;
+  letter-spacing:1px;
+}
+
+h1{
+  font-size:3rem;
+  margin-bottom:20px;
+  text-shadow:0 4px 15px rgba(255,255,255,0.35);
+}
+
+#countdown{
+  font-size:3.5rem;
+  font-weight:700;
+  margin-top:20px;
+  text-shadow:0 6px 20px rgba(255,255,255,0.4);
+}
+
+.screen{
+  max-width:900px;
+  padding:30px;
+}
+
 .hidden{display:none;}
 
-button{ background:linear-gradient(135deg,#fff,#ffe6ee); color:#ff4f8b; border:none; padding:15px 32px; font-size:1.15rem; border-radius:40px; cursor:pointer; margin-top:20px; transition:0.3s ease; }
-button:hover{ transform:scale(1.1); box-shadow:0 12px 30px rgba(255,79,139,0.45); }
-
-.emoji{ position:fixed; font-size:2rem; animation:floatUp 6s ease-out forwards; pointer-events:none; z-index:10; }
-@keyframes floatUp{ from{transform:translateY(40px);opacity:1;} to{transform:translateY(-120vh);opacity:0;} }
-
-.sparkle{ position:fixed; font-size:1.5rem; pointer-events:none; animation:sparkleAnim 2s ease-out forwards; z-index:100; }
-@keyframes sparkleAnim{ from{opacity:1; transform:scale(0.5) translateY(0);} to{opacity:0; transform:scale(1.5) translateY(-80px);} }
-
-.popup{ display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); justify-content:center; align-items:center; z-index:50; }
-.popup-box{ background:white; color:#ff4f8b; padding:30px; border-radius:22px; max-width:540px; width:90%; animation:fadeIn 0.4s ease; text-align:center; max-height:80vh; display:flex; flex-direction:column; }
-@keyframes fadeIn{ from{opacity:0;transform:scale(0.9);} to{opacity:1;transform:scale(1);} }
-
-video{ width:100%; border-radius:18px; margin-top:15px; box-shadow:0 15px 40px rgba(255,79,139,0.4); filter:brightness(1.05) saturate(1.1); }
-
-.message{ font-size:1.3rem; line-height:1.8; text-align:left; max-height:55vh; overflow-y:auto; padding:5px 10px; }
-
-.back-btn{ background:#ffe4ec; color:#ff4f8b; padding:10px 22px; font-size:1rem; margin-bottom:15px; flex-shrink:0; }
-
-.memories{ max-height:60vh; overflow-y:auto; padding-right:8px; }
-.memory{ margin-bottom:30px; background:white; padding:12px; border-radius:22px; box-shadow:0 10px 25px rgba(255,79,139,0.25); }
-.memory img{ width:100%; border-radius:18px; }
-.caption{ margin-top:10px; font-size:1.1rem; color:#ff2f6d; font-weight:500; line-height:1.5; }
-
-/* Cinematic final */
-#loveEnding{
-  position:fixed; inset:0; display:flex; justify-content:center; align-items:center;
-  font-size:4rem; font-weight:900; color:white; opacity:0; pointer-events:none; transition:opacity 1s ease;
-  background:none; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  text-shadow:0 0 15px rgba(255,255,255,0.4),0 0 25px rgba(255,79,139,0.5);
-  animation:pulseText 1.5s infinite; z-index:1000;
+button{
+  background:linear-gradient(135deg,#fff,#ffe6ee);
+  color:#ff4f8b;
+  border:none;
+  padding:15px 32px;
+  font-size:1.15rem;
+  border-radius:40px;
+  cursor:pointer;
+  margin-top:20px;
+  transition:0.3s ease;
 }
-@keyframes pulseText{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+
+button:hover{
+  transform:scale(1.1);
+  box-shadow:0 12px 30px rgba(255,79,139,0.45);
+}
+
+.emoji{
+  position:fixed;
+  font-size:2rem;
+  animation:floatUp 6s ease-out forwards;
+  pointer-events:none;
+  z-index:10;
+}
+
+@keyframes floatUp{
+  from{transform:translateY(40px);opacity:1;}
+  to{transform:translateY(-120vh);opacity:0;}
+}
+
+.sparkle{
+  position:fixed;
+  font-size:1.5rem;
+  pointer-events:none;
+  animation:sparkleAnim 2s ease-out forwards;
+  z-index:100;
+}
+
+@keyframes sparkleAnim{
+  from{opacity:1; transform:scale(0.5) translateY(0);}
+  to{opacity:0; transform:scale(1.5) translateY(-80px);}
+}
+
+.popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.65);
+  justify-content:center;
+  align-items:center;
+  z-index:50;
+}
+
+.popup-box{
+  background:white;
+  color:#ff4f8b;
+  padding:30px;
+  border-radius:22px;
+  max-width:540px;
+  width:90%;
+  animation:fadeIn 0.4s ease;
+  text-align:center;
+  max-height:80vh;
+  display:flex;
+  flex-direction:column;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.9);}
+  to{opacity:1;transform:scale(1);}
+}
+
+video{
+  width:100%;
+  border-radius:18px;
+  margin-top:15px;
+  box-shadow:0 15px 40px rgba(255,79,139,0.4);
+  filter:brightness(1.05) saturate(1.1);
+}
+
+.message{
+  font-size:1.3rem;
+  line-height:1.8;
+  text-align:left;
+  max-height:55vh;
+  overflow-y:auto;
+  padding-right:10px;
+  padding-left:10px;
+  padding-top:5px;
+}
+
+.back-btn{
+  background:#ffe4ec;
+  color:#ff4f8b;
+  padding:10px 22px;
+  font-size:1rem;
+  margin-bottom:15px;
+  flex-shrink:0;
+}
+
+.memories{
+  max-height:60vh;
+  overflow-y:auto;
+  padding-right:8px;
+}
+
+.memory{
+  margin-bottom:30px;
+  background:white;
+  padding:12px;
+  border-radius:22px;
+  box-shadow:0 10px 25px rgba(255,79,139,0.25);
+}
+
+.memory img{
+  width:100%;
+  border-radius:18px;
+}
+
+.caption{
+  margin-top:10px;
+  font-size:1.1rem;
+  color:#ff2f6d;
+  font-weight:500;
+  line-height:1.5;
+}
+
+/* ✨ Cinematic final surprise ✨ */
+#loveEnding{
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:4rem;
+  font-weight:900;
+  color:white;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 1s ease;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 15px rgba(255,255,255,0.4), 0 0 25px rgba(255,79,139,0.5);
+  animation:pulseText 1.5s infinite;
+  z-index:1000;
+}
+
+@keyframes pulseText{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+}
 </style>
 </head>
 
@@ -74,7 +227,8 @@ video{ width:100%; border-radius:18px; margin-top:15px; box-shadow:0 15px 40px r
 <div id="loveEnding">I love you so much mazi adudiii 🥹❤️</div>
 
 <script>
-const targetTime = new Date(2026,0,3,17,14,0).getTime();
+const targetTime = new Date(2026, 0, 3, 14, 20, 0).getTime();
+
 const countdownEl = document.getElementById("countdown");
 const countdownScreen = document.getElementById("countdownScreen");
 const birthdayScreen = document.getElementById("birthdayScreen");
@@ -84,28 +238,27 @@ const loveEnding = document.getElementById("loveEnding");
 const surpriseBtn = document.getElementById("surpriseBtn");
 
 let done = false;
-let celebrationInterval;
 
 function updateCountdown(){
   const diff = targetTime - Date.now();
-  if(diff <=0 && !done){
+  if(diff <= 0 && !done){
     clearInterval(timer);
     countdownScreen.classList.add("hidden");
     birthdayScreen.classList.remove("hidden");
     celebrate();
-    done=true;
+    done = true;
     return;
   }
-  if(diff>0){
-    const d=Math.floor(diff/(1000*60*60*24));
-    const h=Math.floor((diff/(1000*60*60))%24);
-    const m=Math.floor((diff/(1000*60))%60);
-    const s=Math.floor((diff/1000)%60);
-    countdownEl.textContent=`${d}d ${h}h ${m}m ${s}s`;
+  if(diff > 0){
+    const d = Math.floor(diff/(1000*60*60*24));
+    const h = Math.floor((diff/(1000*60*60))%24);
+    const m = Math.floor((diff/(1000*60))%60);
+    const s = Math.floor((diff/1000)%60);
+    countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
   }
 }
 
-const timer = setInterval(updateCountdown,1000);
+const timer = setInterval(updateCountdown, 1000);
 updateCountdown();
 
 /* Celebration 🎉 */
@@ -124,29 +277,25 @@ function celebrate(){
   }
 }
 
-/* Floating hearts 💗 for cinematic ending */
-function createHearts(duration=4000){
-  const heartInterval = setInterval(()=>{
-    const heart=document.createElement("div");
-    heart.className="emoji";
-    heart.textContent="💗";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.bottom="-20px";
-    heart.style.fontSize=(Math.random()*1.5+1.5)+"rem";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),7000);
-  },250);
-  setTimeout(()=>clearInterval(heartInterval),duration);
-}
+/* Floating hearts 💗 */
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="emoji";
+  heart.textContent="💗";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.bottom="-20px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),7000);
+},2500);
 
-/* Sparkles */
+/* Sparkles ✨ */
 function createSparkles(){
   for(let i=0;i<15;i++){
     const sparkle=document.createElement("div");
     sparkle.className="sparkle";
     sparkle.textContent="✨";
-    sparkle.style.left=Math.random()*80+10+"vw";
-    sparkle.style.bottom=Math.random()*50+10+"vh";
+    sparkle.style.left=Math.random()*80 + 10 + "vw";
+    sparkle.style.bottom=Math.random()*50 + 10 + "vh";
     document.body.appendChild(sparkle);
     setTimeout(()=>sparkle.remove(),2000);
   }
@@ -203,27 +352,80 @@ function showMemories(){
     <button class="back-btn" onclick="openChoices()">⬅ Back</button>
     <h2>Our Little Forever 💞</h2>
     <div class="memories">
-      <div class="memory"><img src="image1.jpg-01 (1).jpg"><p class="caption">The moment our forever quietly began 💫❤️</p></div>
-      <div class="memory"><img src="image2.jpg-01.jpg"><p class="caption">Your smile is my favorite place to get lost 🥹✨</p></div>
-      <div class="memory"><img src="image3.jpg-01.jpg"><p class="caption">Every laugh with you feels like a blessing 🧿💖</p></div>
-      <div class="memory"><img src="image4.jpg-01.jpg"><p class="caption">Still choosing you. Every day. Forever. ♾️❤️</p></div>
+      <div class="memory">
+        <img src="image1.jpg-01 (1).jpg">
+        <p class="caption">The moment our forever quietly began 💫❤️</p>
+      </div>
+      <div class="memory">
+        <img src="image2.jpg-01.jpg">
+        <p class="caption">Your smile is my favorite place to get lost 🥹✨</p>
+      </div>
+      <div class="memory">
+        <img src="image3.jpg-01.jpg">
+        <p class="caption">Every laugh with you feels like a blessing 🧿💖</p>
+      </div>
+      <div class="memory">
+        <img src="image4.jpg-01.jpg">
+        <p class="caption">Still choosing you. Every day. Forever. ♾️❤️</p>
+      </div>
     </div>
   `;
 }
 
 function showEnding(){
-  popup.style.display="none";
+  popup.style.display = "none";
   birthdayScreen.classList.add("hidden");
   countdownScreen.classList.add("hidden");
-  loveEnding.style.opacity="1";
-  loveEnding.style.pointerEvents="auto";
-  createHearts(4000);
-  setTimeout(()=>{ loveEnding.style.opacity="0"; },4000);
+  loveEnding.style.opacity = "1";
+  loveEnding.style.pointerEvents = "auto";
+
+  // Floating hearts
+  const heartInterval = setInterval(()=>{
+    const heart = document.createElement("div");
+    heart.className = "emoji";
+    heart.textContent = "💗";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.bottom = "-20px";
+    heart.style.fontSize = (Math.random()*1.5 + 1.5) + "rem";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),7000);
+  }, 250);
+
+  // Stop hearts and hide loveEnding after 4 seconds
+  setTimeout(()=>{
+    clearInterval(heartInterval);
+    loveEnding.style.opacity = "0";
+  }, 4000);
+  }
+
+  // Stop hearts after 4 seconds
+  setTimeout(()=>{
+    clearInterval(heartInterval);
+  }, 4000);
+
+  // Hide loveEnding after 4 seconds
+  setTimeout(()=>{
+    loveEnding.style.opacity = "0";
+  }, 4000);
 }
 
-function closePopup(){ popup.style.display="none"; }
-popup.addEventListener("click",e=>{ if(e.target===popup) closePopup(); });
-surpriseBtn.addEventListener("click",openChoices);
+  // Hide loveEnding after 4s and stop hearts
+  setTimeout(()=>{
+    loveEnding.style.opacity="0";
+    clearInterval(heartInterval);
+  },4000);
+}
+
+function closePopup(){
+  popup.style.display="none";
+}
+
+popup.addEventListener("click", e=>{
+  if(e.target===popup) closePopup();
+});
+
+surpriseBtn.addEventListener("click", openChoices);
 </script>
+
 </body>
-</html>
+  </html>
